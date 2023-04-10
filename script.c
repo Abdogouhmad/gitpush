@@ -22,7 +22,7 @@ for (; i < loop; i++){
 
       if (strlen(input) > 0)
       {
-         sprintf(command[i], "git commit -m '%s' ", input);
+      snprintf(command[1], 1040, "git commit -m '%s'", input);
       }
    }
 
