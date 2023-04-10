@@ -9,7 +9,7 @@
 
 int main ()
 {   
-char command[3][1024] = {"git add .", "git commit -m 'updated'", "git push"};
+char command[3][1024] = {"git add .", "git commit -m 'updated'", "git push"}; // change here the name of the commit.
 int loop = 3, i = 0;
 char input [1024];
 
