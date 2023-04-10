@@ -20,11 +20,10 @@ for (; i < loop; i++){
       printf("please enter the name of commit incase y didn't the cmt would be 'updated': ");
       scanf("%1024[^\n]s", input);
 
-      if (strlen(input) > 0)
-      {
-         sprintf(command[i], "git commit -m '%s' ", input);
-      }
-   }
+     if (strlen(input) > 0)
+    {
+        snprintf(command[1], 1024, "git commit -m '%s'", input);
+    }
 
    system(command[i]);
 }
