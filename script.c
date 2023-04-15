@@ -9,11 +9,11 @@
 
 int main (void)
 {   
-char command[4][1024] = {"git add .", "git commit -m 'updated'", "git push", "clear"}; // change here the name of the commit.
+char command[4][1024] = {"git add .", "git commit -m 'updated'", "git push", "clear"};
 int loop = 4, i = 0;
 char input [1024];
 
-for (; i < loop; i++)
+for (; i <= loop; i++)
   {
 
    if (i == 1)
