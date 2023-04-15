@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MAX 4 
 /**
  * this script that made by div-styl
  * designed to facilitate the process of pushing to github
@@ -9,7 +10,7 @@
 
 int main (void)
 {   
-char command[4][1024] = {"git add .", "git commit -m 'updated'", "git push", "clear"};
+char command[MAX][1024] = {"git add .", "git commit -m 'updated'", "git push", "clear"};
 int loop = 5, i = 0;
 char input [1024];
 
@@ -18,7 +19,7 @@ for (; i < loop; i++)
 
    if (i == 1)
    {
-      printf("enter the name commit if you don't "update" is your commit: ");
+      printf("enter the name commit if you don't \"update\" is your commit: ");
       scanf("%1024[^\n]s", input);
 
       if (strlen(input) > 0)
