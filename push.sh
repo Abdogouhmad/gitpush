@@ -8,8 +8,7 @@ YelBLOND="\e[38;5;220m"
 git add .
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
-    echo -e "${REDBLOND}asm7 lya rak mchi fel github chof fin kdour
-    "
+    echo -e "${REDBLOND}You are not in github repo so of course you going to see this msg"
     exit
 else
     git add .
@@ -29,7 +28,8 @@ fi
 git push
 save_output=$? #storing the ouput for the condition
 if [ $save_output != 0 ]; then
-    echo ach hd lkhra tsna n7lha lik!
+    echo ${REDBLOND}there is issue with push i will push again hold!
+    git push 
 elif [ $save_output == 0 ]; then
     clear
 else
@@ -40,9 +40,9 @@ fi
 
 git status 
 if [ $? -ne 0 ]; then
-    echo Hmmmm? chl3ba machi tal tma ewa hda jhdi elik
+    echo ${REDBLOND}Hmmmm? something odd here try to figure it out!
 else
-    echo sfe mzyn db?
+    echo OOOH it works
 fi
 
 #leaving the whole shit
