@@ -15,8 +15,15 @@ ls -la
 
 flixiable_path="$PWD"
 
-
-
+echo -e do you wanna add specific file [y/n]?
+read filename
+if [ $filename  == 'y' ]; then 
+    echo test msg for condition hhh
+    sleep 2
+    echo "GOOD BYE ;)"
+    sleep 2
+    exit
+fi 
 git add .
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
