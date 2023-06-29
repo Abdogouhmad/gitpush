@@ -3,6 +3,7 @@
 
 REDBLOND="\e[31;5;220m"
 YelBLOND="\e[38;5;220m"
+GREEN= "\e0;32"
 NC='\033[0m' # No Color
 
 # Adding all files
@@ -18,8 +19,9 @@ read yes
 if [ $yes  == 'y' ]; then
     for(( ; ; ))
         do
-            echo -e ${REDBLON}changes are:
+            echo -e ${REDBLOND}changes are:
             git status --short
+            echo -e ${GREEN}add the file name:
             read filename #the file name observed at the beginning!
             git add $filename
             read bye #this input spacially made for exiting the porgram

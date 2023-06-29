@@ -24,5 +24,6 @@ chmod +x pusher
 2.then run it using the simple syntaxt that is known:
 
 ```bash
-./pusher
+./psh
 ```
+new bash script will be ready soon
