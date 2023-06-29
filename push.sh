@@ -7,23 +7,34 @@ NC='\033[0m' # No Color
 
 # Adding all files
 #customed files
-echo -e ${YelBLOND}Hello KING/QUEEN lemme show your diractory 1st and tell me what to add!
+echo -e ${YelBLOND}Hello KING/QUEEN, let me show your directory first and tell me what to add!
 echo -e ${NC}
-sleep 2
 ls -la
 #condition goes here
 
-flixiable_path="$PWD"
+echo -e do you wanna add specific file [y/n]? #specail msg for specail codition/situation
+read yes
 
-echo -e do you wanna add specific file [y/n]?
-read filename
-if [ $filename  == 'y' ]; then 
-    echo test msg for condition hhh
-    sleep 2
-    echo "GOOD BYE ;)"
-    sleep 2
-    exit
-fi 
+if [ $yes  == 'y' ]; then
+    for(( ; ; ))
+        do
+            echo -e ${REDBLON}changes are:
+            git status --short
+            read filename #the file name observed at the beginning!
+            git add $filename
+            read bye #this input spacially made for exiting the porgram
+        if ( bye == 'exit' )
+            then
+                break
+        fi
+            echo give the commit name:
+            read cmt
+            git commit -m "$cmt"
+            git push
+            clear
+            exit
+        done
+fi
 git add .
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
@@ -34,8 +45,7 @@ else
 fi
 #commiting the changes
 echo what is your commit name?
-
-read Cname
+read Cname #git the commit name for user
 if [ -z "$Cname" ]; then
     git commit -m "new upload!"
 else
@@ -48,7 +58,7 @@ git push
 save_output=$? #storing the ouput for the condition
 if [ $save_output != 0 ]; then
     echo ${REDBLOND}there is issue with push i will push again hold!
-    git push 
+    git push
 elif [ $save_output == 0 ]; then
     clear
 else
@@ -57,7 +67,7 @@ fi
 
 #checking the changes
 
-git status 
+git status
 if [ $? -ne 0 ]; then
     echo ${REDBLOND}Hmmmm? something odd here try to figure it out!
 else
@@ -69,4 +79,4 @@ fi
 echo clearing after 3s
 sleep 3
 clear
-echo -e ${YelBLOND}Happy coding King/Queen! 
+echo -e ${YelBLOND}Happy coding King/Queen!
