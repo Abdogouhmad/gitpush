@@ -3,8 +3,20 @@
 
 REDBLOND="\e[31;5;220m"
 YelBLOND="\e[38;5;220m"
+NC='\033[0m' # No Color
 
 # Adding all files
+#customed files
+echo -e ${YelBLOND}Hello KING/QUEEN lemme show your diractory 1st and tell me what to add!
+echo -e ${NC}
+sleep 2
+ls -la
+#condition goes here
+
+flixiable_path="$PWD"
+
+
+
 git add .
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
