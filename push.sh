@@ -26,15 +26,15 @@ if [ $yes  == 'y' ]; then
         if ( $filename == 'exit' )
             then
                 exit
-        else
+        elif [ $filename != 'exit' ]; then
             git add $filename
-        fi
             echo give the commit name:
             read cmt
             git commit -m "$cmt"
             git push
+        fi
+            exit
         done
-        exit
 fi
 git add .
 add_output=$? # Adding output for condition
