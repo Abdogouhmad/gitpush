@@ -33,7 +33,8 @@ if [ $yes  == 'y' ]; then
             git commit -m "$cmt"
             git push
         fi
-            exit
+            clear
+            echo -e ${YelBLOND}Happy coding King/Queen!
         done
 fi
 git add .
