@@ -19,9 +19,7 @@ read yes
 if [ $yes  == 'y' ]; then
     for(( ; ; ))
         do
-            echo -e ${REDBLOND} what you prefect to be called:
-            read name
-            echo -e ${REDBLOND}here are the changes you made $name:
+            echo -e ${REDBLOND}here are the changes you made:
             git status --short
             echo -e ${GREEN}add the file name or exit to add everything:
             read filename #the file name observed at the beginning!
@@ -36,7 +34,7 @@ if [ $yes  == 'y' ]; then
             git push
         fi
             clear
-            echo -e ${YelBLOND}Happy coding $name!
+            echo -e ${YelBLOND}Happy coding KING/QUEEN!
             exit
         done
 fi
