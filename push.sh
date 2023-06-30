@@ -35,6 +35,7 @@ if [ $yes  == 'y' ]; then
         fi
             clear
             echo -e ${YelBLOND}Happy coding King/Queen!
+            exit
         done
 fi
 git add .
