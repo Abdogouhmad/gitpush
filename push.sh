@@ -23,7 +23,7 @@ if [ $yes  == 'y' ]; then
             git status --short
             echo -e ${GREEN}add the file name or exit to add everything:
             read filename #the file name observed at the beginning!
-        if ( $filename == 'exit' )
+        if [ $filename == 'exit' ]
             then
                 exit
         elif [ $filename != 'exit' ]; then
