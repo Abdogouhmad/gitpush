@@ -3,7 +3,7 @@
 
 REDBLOND="\e[31;5;220m"
 YelBLOND="\e[38;5;220m"
-GREEN= "\e0;32"
+GREEN='\e[38;5;186m'
 NC='\033[0m' # No Color
 
 # Adding all files
@@ -21,21 +21,20 @@ if [ $yes  == 'y' ]; then
         do
             echo -e ${REDBLOND}changes are:
             git status --short
-            echo -e ${GREEN}add the file name:
+            echo -e ${GREEN}add the file name or exit to add everything:
             read filename #the file name observed at the beginning!
-            git add $filename
-            read bye #this input spacially made for exiting the porgram
-        if ( bye == 'exit' )
+        if ( $filename == 'exit' )
             then
-                break
+                exit
+        else
+            git add $filename
         fi
             echo give the commit name:
             read cmt
             git commit -m "$cmt"
             git push
-            clear
-            exit
         done
+        exit
 fi
 git add .
 add_output=$? # Adding output for condition

@@ -26,4 +26,4 @@ chmod +x pusher
 ```bash
 ./psh
 ```
-new bash script will be ready soon
+new bash script will be ready coming soon
