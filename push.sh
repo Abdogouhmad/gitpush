@@ -15,9 +15,7 @@ ls -la
 
 echo -e do you wanna add specific file [y/n]? #specail msg for specail codition/situation
 read yes
-
-if [ $yes  == 'y' ]; then
-    for(( ; ; ))
+while [ $yes == 'y' ]
         do
             echo -e ${REDBLOND}here are the changes you made:
             git status --short
@@ -36,8 +34,9 @@ if [ $yes  == 'y' ]; then
             clear
             echo -e ${YelBLOND}Happy coding KING/QUEEN!
             exit
-        done
-fi
+done
+
+# second choice code
 git add .
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
