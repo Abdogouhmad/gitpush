@@ -28,7 +28,7 @@ ${PROG}: ${OBJ}
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 run: build
-	@valgrind --leak-check=full --show-leak-kinds=all ./$(PROG)
+	@./$(PROG)
 
 clear:
 	@echo -e "$(YELLOW)Cleaning ...$(NC)"
