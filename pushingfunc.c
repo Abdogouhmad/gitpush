@@ -6,7 +6,7 @@
  */
 void executeCommand(const char *command)
 {
-    char *cmd = (char *)malloc(sizeof(char) * 100);
+    char *cmd = (char *)malloc(sizeof(char) * strlen(command) + 1);
     strcpy(cmd, command);
     system(cmd);
     free(cmd);
