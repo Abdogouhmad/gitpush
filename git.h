@@ -9,7 +9,7 @@
 #define MAX_COMMANDS 10
 /*prototypes*/
 void executeCommand(const char *command);
-void freeCommandsAndInputs(char **commands, int numCommands, char *input, char* commit);
+void freeCommandsAndInputs(char **commands, int numCommands, char* commit);
 char* getInput(void);
 void githuberror(void);
 #endif

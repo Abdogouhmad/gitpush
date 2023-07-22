@@ -33,13 +33,12 @@ int main(void)
             commit = malloc(strlen(input) + strlen("get commit -m ''") + 1);
             sprintf(commit, "git commit -m '%s'", input);
             cmd[i] = commit;
-            free(input);
         }
         /*execute the commands*/
         executeCommand(cmd[i]);
-
+        free(input);
     }  
     /*free the commands and input*/
-    freeCommandsAndInputs(cmd, cmdlen, input, commit);
+    freeCommandsAndInputs(cmd, cmdlen, commit);
     return (0);
 }
