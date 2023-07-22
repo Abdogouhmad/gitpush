@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_COMMANDS 4
+#define MAX_COMMANDS 3
 
 void executeCommand(const char *command)
 {
@@ -28,29 +28,40 @@ char* getInput()
     return input;
 }
 
-int main(void)
+int argExist(const char* arg, const int argc, const char* argv) {
+    for (int i = 0; i < argc - 1; ++i) {
+        if (argv[i] == arg) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int main(int argc, char* argv[])
 {
-    if (system("git 2>1 > /dev/null" ) == 127) {
+    if (system("git > /dev/null 2>&1" ) == 127) {
         printf("Git is not dectected");
         exit(127);
     }
-    if (system("git status 2>1 > /dev/null") == 128) {
+    if (system("git status > /dev/null 2>&1") == 128) {
         printf("Git repository not dectected, use git init to create a git repository");
         exit(128);
     }
     const char *commands[MAX_COMMANDS] =
     {
-        "git add -A",
+        "git add -A -f",
         "git commit -m 'updated'",
         "git push",
         //"clear"
     };
 
+    
+
     int numCommands = sizeof(commands) / sizeof(commands[0]);
 
     for (int i = 0; i < numCommands; i++)
   {
-        if (i == 1)
+        if (i == 1 && )
     {
             char* input = getInput();
             if (strlen(input) > 0) /*check if the user provide the commit name*/

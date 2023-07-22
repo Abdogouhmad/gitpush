@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 #colorization of Error messages
 
 REDBLOND="\e[31;5;220m"
@@ -37,13 +37,13 @@ while [ $yes == 'y' ]
 done
 
 # second choice code
-git add .
+git add -A
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
     echo -e "${REDBLOND}You are not in github repo so of course you going to see this msg"
     exit
 else
-    git add .
+    git add -A
 fi
 #commiting the changes
 echo what is your commit name?
