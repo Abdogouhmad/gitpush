@@ -66,7 +66,10 @@ int main(int argc, char* argv[])
             }
         else if (argc > 1) {
             for (int i = 0; i < argc; i++) {
-            if (strcmp(argv[i], "commit") == 0 || strcmp(argv[i], "-commit") == 0 || strcmp(argv[i], "--commit") == 0 || strcmp(argv[i], "-c") == 0) {
+            if (strcmp(argv[i], "add") == 0 || strcmp(argv[i], "file") == 0 || strcmp(argv[i], "-add") || strcmp(argv[i], "--add") == 0 || strcmp(argv[i], "-a") == 0) {
+                commands[0] = argv[i+1];
+            }
+            else if (strcmp(argv[i], "commit") == 0 || strcmp(argv[i], "-commit") == 0 || strcmp(argv[i], "--commit") == 0 || strcmp(argv[i], "-c") == 0) {
                 commands[1] = argv[i+1];
             }
         }
@@ -78,5 +81,3 @@ int main(int argc, char* argv[])
     return 0;
     
 }
-
-
