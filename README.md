@@ -7,7 +7,7 @@ this program is made using c language under ```system()``` function, which gives
 
 ## cmd used in script
 
-1. ```git add .``` this cmd tracked and add all files that you made change in.
+1. ```git add -A``` this cmd tracked and add all files that you made change in.
 2. ```git commit -m' '``` this cmd gives a name to your changes you made and you can preview them by the cmd ```git log```.
 3. ```git push``` this cmd send changes to github repo.
 
