@@ -28,17 +28,18 @@ char* getInput()
     return input;
 }
 
-int argExist(const char* arg, const int argc, const char* argv) {
-    for (int i = 0; i < argc - 1; ++i) {
-        if (argv[i] == arg) {
-            return 1;
-        }
-    }
-    return 0;
-}
+// int argExist(const char* arg, const int argc, const char* argv) {
+//     for (int i = 0; i < argc - 1; ++i) {
+//         if (strcmp (argv[i], arg) == 0) {
+//             return 1;
+//         }
+//     }
+//     return 0;
+// }
 
 int main(int argc, char* argv[])
 {
+    char input[100];
     if (system("git > /dev/null 2>&1" ) == 127) {
         printf("Git is not dectected");
         exit(127);
@@ -61,7 +62,7 @@ int main(int argc, char* argv[])
 
     for (int i = 0; i < numCommands; i++)
   {
-        if (i == 1 && )
+        if (i == 1)
     {
             char* input = getInput();
             if (strlen(input) > 0) /*check if the user provide the commit name*/
