@@ -44,3 +44,14 @@ void freeCommandsAndInputs(char **commands, int numCommands, char *input)
     }
     free(input);
 }
+/**
+ * 
+*/
+int githuberror(void)
+{
+    if (system("git > /dev/null 2>&1") == 100)
+        erros(100, "remote repo is not detected!\n");
+    if (system("gss > /dev/null 2>&1") == 200)
+        erros(200, "Git repository not dectected, use git init to create a git repository\n");
+
+}
