@@ -3,7 +3,7 @@
  * executeCommand - execute a command
  * @command: command to execute
  * Return: void
-*/
+ */
 void executeCommand(const char *command)
 {
     char *cmd = (char *)malloc(sizeof(char) * 100);
@@ -14,18 +14,18 @@ void executeCommand(const char *command)
 /**
  * getInput - get the input from the user
  * Return: the input
-*/
-char* getInput(void)
+ */
+char *getInput(void)
 {
-    char* input = NULL;
+    char *input = NULL;
     size_t size = 0;
-    
+
     printf("Enter the commit name (or leave empty for 'update'): ");
     getline(&input, &size, stdin); /*get the input using getline which allocate and free*/
-    
+
     /*Remove trailing newline character*/
     input[strcspn(input, "\n")] = '\0';
-    
+
     return input;
 }
 /**
@@ -34,7 +34,7 @@ char* getInput(void)
  * @numCommands: the number of commands
  * @input: the input
  * Return: void
-*/
+ */
 void freeCommandsAndInputs(char **commands, int numCommands, char *input)
 {
     int i = 0;
@@ -45,13 +45,18 @@ void freeCommandsAndInputs(char **commands, int numCommands, char *input)
     free(input);
 }
 /**
- * 
-*/
-int githuberror(void)
+ *
+ */
+void githuberror(void)
 {
     if (system("git > /dev/null 2>&1") == 100)
-        erros(100, "remote repo is not detected!\n");
+    {
+        perror("remote repo is not detected!\n");
+        exit(100);
+    }
     if (system("gss > /dev/null 2>&1") == 200)
-        erros(200, "Git repository not dectected, use git init to create a git repository\n");
-
+    {
+        perror("Git repository not dectected, use git init to create a git repository\n");
+        exit(200);
+    }
 }

@@ -17,13 +17,15 @@ CFLAGS= -Wall -pedantic -Wextra -std=gnu89 -g
 
 #rules and recipes
 
-build: $(PROG)
+build: ${PROG}
+
+${PROG}: ${OBJ}
 	@echo -e "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}"
 	@$(CC) $(CFLAGS) -o $@ $^
 	@echo -e "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c -o $@ $^
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 run: build
 	@./$(PROG)
@@ -38,5 +40,4 @@ clear:
 #	@echo -e "$(RED)Error: Files $(files) are not removed"; \
 #fi
 
-clean:
-	@clear
+.PHONY: clear run build

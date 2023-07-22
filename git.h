@@ -11,5 +11,5 @@
 void executeCommand(const char *command);
 void freeCommandsAndInputs(char **commands, int numCommands, char *input);
 char* getInput(void);
-int githuberror(void)
+void githuberror(void);
 #endif
