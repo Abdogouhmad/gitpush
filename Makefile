@@ -9,7 +9,7 @@ YELLOW=\033[0;33m
 PROG= pushc
 SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
-FILES = $(PROG) $(OBJ)
+FILES = $(OBJ) $(PROG)
 #COMPILER variable
 
 CC= cc

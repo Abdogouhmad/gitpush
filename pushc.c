@@ -8,7 +8,7 @@ int main(void)
 {
     char* cmd [MAX_COMMANDS] = {
         "git status --short",
-        "git add -A -f",
+        "git add .",
         "git commit -m 'updated'",
         "sleep 2",
         "clear",
@@ -37,8 +37,6 @@ int main(void)
         }
         /*execute the commands*/
         executeCommand(cmd[i]);
-        free(input);
-        input = NULL;
 
     }  
     /*free the commands and input*/
