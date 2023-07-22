@@ -35,13 +35,15 @@ char *getInput(void)
  * @input: the input
  * Return: void
  */
-void freeCommandsAndInputs(char **commands, int numCommands, char *input)
+void freeCommandsAndInputs(char **commands, int numCommands, char *input, char* commit)
 {
     int i = 0;
     for (; i < numCommands; i++)
     {
         free(commands[i]);
     }
+    free(commands);
+    free(commit);
     free(input);
 }
 /**

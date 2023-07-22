@@ -12,10 +12,10 @@ int main(void)
         "git commit -m 'updated'",
         "sleep 2",
         "clear",
-        "echo -e 'Happy coding King",
+        "echo -e 'Happy coding King' ",
     };
     char *input = NULL, *commit;
-    int cmdlen, i, j;
+    int cmdlen, i;
 
     /*handling the github errors*/
     githuberror();
@@ -31,13 +31,17 @@ int main(void)
         if (strlen(input) > 0)
         {
             commit = malloc(strlen(input) + strlen("get commit -m ''") + 1);
-            sprintf(cmd, "git commit -m '%s'", input);
+            sprintf(commit, "git commit -m '%s'", input);
             cmd[i] = commit;
+            free(input);
         }
         /*execute the commands*/
         executeCommand(cmd[i]);
-        /*free the commands and input*/
-        freeCommandsAndInputs(&cmd, cmdlen, input);
-    }
+        free(input);
+        input = NULL;
+
+    }  
+    /*free the commands and input*/
+    freeCommandsAndInputs(cmd, cmdlen, input, commit);
     return (0);
 }
