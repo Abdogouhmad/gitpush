@@ -31,8 +31,12 @@ run: build
 clear:
 	@echo -e "$(YELLOW)Cleaning ...$(NC)"
 	@rm -f $(FILES)
-	@if [ $$? -eq 0 ]; then\ 
-		@echo -e "$(MAGENTA)Files $(files) are removed successfully"; \
-	else \
-		@echo -e "$(RED)Error: Files $(files) are not removed"; \
-	fi
+	@if [ $$? -eq 0 ]; then echo -e "$(MAGENTA)Files $(FILES) are removed successfully"; else @echo -e "$(RED)Error: Files $(FILES) are not removed"; fi
+#@if [ $$? -eq 0 ]; then\ 
+#	@echo -e "$(MAGENTA)Files $(files) are removed successfully"; \
+#else \
+#	@echo -e "$(RED)Error: Files $(files) are not removed"; \
+#fi
+
+clean:
+	@clear
