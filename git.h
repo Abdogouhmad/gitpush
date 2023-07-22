@@ -7,5 +7,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
 /*prototypes*/
+#define MAX_COMMANDS 3
 
 #endif

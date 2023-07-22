@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_COMMANDS 3
+#include "git.h"
 
 void executeCommand(const char *command)
 {
