@@ -28,14 +28,6 @@ char* getInput()
     return input;
 }
 
-// int argExist(const char* arg, const int argc, const char* argv) {
-//     for (int i = 0; i < argc - 1; ++i) {
-//         if (strcmp (argv[i], arg) == 0) {
-//             return 1;
-//         }
-//     }
-//     return 0;
-// }
 
 int main(int argc, char* argv[])
 {
@@ -62,7 +54,7 @@ int main(int argc, char* argv[])
 
     for (int i = 0; i < numCommands; i++)
   {
-        if (i == 1)
+        if (i == 1 && argc < 1)
     {
             char* input = getInput();
             if (strlen(input) > 0) /*check if the user provide the commit name*/
@@ -72,10 +64,19 @@ int main(int argc, char* argv[])
                 commands[i] = command;
                 free(input);
             }
+        else if (argc > 1) {
+            for (int i = 0; i < argc; i++) {
+            if (strcmp(argv[i], "commit") == 0 || strcmp(argv[i], "-commit") == 0 || strcmp(argv[i], "--commit") == 0 || strcmp(argv[i], "-c") == 0) {
+                commands[1] = argv[i+1];
+            }
+        }
     }
-        executeCommand(commands[i]);
   }
-
+    executeCommand(commands[i]);
+        
+  }
     return 0;
+    
 }
+
 
