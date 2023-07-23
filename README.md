@@ -21,16 +21,33 @@ The **script** gives you to enter the name of the commit, and you can skip this 
 
 ### manual install
 
-1. download the ```pusher``` and give the permission of executing.
+1. clone the repo
 
 ```bash
-chmod +x psh
+git clone https://github.com/div-styl/gitpush.git
 ```
 
-2. then run it using the simple syntaxt that is known:
+2. use makefile to build and get your executable file
 
 ```bash
-./psh
+make build
+```
+
+3. copy the executable to where you want
+
+```bash
+#assuming that you clone the repo into donwload directory and want
+# to move the executable into desktop
+
+cp ~/Download/gitpush/gitauto ~/Desktop/
+
+``` 
+
+4. then run it using the simple syntaxt that is known:
+
+```bash
+./gitauto
+
 ```
 ## **bash script is here!**
 

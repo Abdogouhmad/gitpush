@@ -6,7 +6,7 @@ MAGENTA=\033[0;35m
 YELLOW=\033[0;33m
 
 #PROGRAM NAME
-PROG= git
+PROG= gitauto
 SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
 FILES = $(OBJ) $(PROG)
