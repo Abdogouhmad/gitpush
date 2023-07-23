@@ -59,7 +59,7 @@ void githuberror(void)
         perror("Remote repo is not detected!\n");
         exit(128);
     }
-    if (system("gss > /dev/null 2>&1") == 128)
+    if (system("git status --short > /dev/null 2>&1") == 128)
     {
         perror("Git repository not dectected, use git init to create a git repository\n");
         exit(128);
