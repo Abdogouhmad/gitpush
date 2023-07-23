@@ -6,9 +6,10 @@
 #include <string.h>
 #include <unistd.h>
 #define MAX_COMMANDS 10
+#define MAX_INPUT 1024
 /*prototypes*/
 void executeCommand(const char *command);
 void freeCommandsAndInputs(char **commands, char *commit);
-char* getInput(void);
+void getInput(char *input, size_t size);
 void githuberror(void);
 #endif

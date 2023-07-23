@@ -6,37 +6,38 @@
  */
 void executeCommand(const char *command)
 {
-    char *cmd = (char *)malloc(sizeof(char) * strlen(command) + 1);
-    strcpy(cmd, command);
-    system(cmd);
-    free(cmd);
+    if (command == NULL)
+        return;
+    system(command);
 }
 /**
  * getInput - get the input from the user
- * Return: the input
+ * @input: buffer to store the input
+ * @size: size of the buffer
+ * Return: void
  */
-char *getInput(void)
+void getInput(char *input, size_t size)
 {
-    char *input = NULL;
-    size_t size = 0;
-
+    if (input == NULL || size <= 0)
+        return;
     printf("Enter the commit name (or leave empty for 'update'): ");
-    getline(&input, &size, stdin); /*get the input using getline which allocate and free*/
+    getline(&input, &size, stdin);
 
-    /*Remove trailing newline character*/
+    /* Remove trailing newline character */
     input[strcspn(input, "\n")] = '\0';
-
-    return input;
 }
+
+
 /**
  * freeCommandsAndInputs - free the commands and the input
  * @commands: the commands
- * @numCommands: the number of commands
- * @input: the input
+ * @commit: the commit message
  * Return: void
  */
 void freeCommandsAndInputs(char **commands, char *commit)
 {
+    if (commands == NULL || commit == NULL)
+        return;
     int i = 0;
     for (; i < MAX_COMMANDS; i++)
     {
@@ -44,6 +45,7 @@ void freeCommandsAndInputs(char **commands, char *commit)
     }
     free(commit);
 }
+
 
 /**
  *
