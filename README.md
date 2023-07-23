@@ -17,7 +17,7 @@ The **script** gives you to enter the name of the commit, and you can skip this 
 
 ### **automatic installation script**
 
-```curl -fsSL https://github.com/div-styl/gitpush/raw/main/install.sh```
+```curl -fsSL https://github.com/div-styl/gitpush/raw/main/install.sh | sh```
 
 ### manual install
 
