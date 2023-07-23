@@ -1,12 +1,8 @@
 #include "git.h"
-/**
- * main - pushing scrept
- * Retunr 0
- * 
-*/
+
 int main(void)
 {
-    char* cmd [MAX_COMMANDS] = {
+    char *cmd[MAX_COMMANDS] = {
         "git status --short",
         "git add .",
         "git commit -m 'updated'",
@@ -14,31 +10,39 @@ int main(void)
         "clear",
         "echo -e 'Happy coding King' ",
     };
-    char *input = NULL, *commit;
+    char *input = NULL, *commit = NULL;
     int cmdlen, i;
 
-    /*handling the github errors*/
+    /* handling the github errors */
     githuberror();
-    /*init the cmds*/
-
-    /*count the size of command*/
+    
+    /* count the size of command */
     cmdlen = sizeof(cmd) / sizeof(cmd[0]);
 
-    /*loop over the size of the array and execute commands*/
-    for (i = 0; i < cmdlen; i++)
+    /* loop over the Git commands */
+    for (i = 0; i < 3; i++)
     {
         input = getInput();
         if (strlen(input) > 0)
         {
-            commit = malloc(strlen(input) + strlen("get commit -m ''") + 1);
+            free(commit); /*Free the previous commit memory*/
+            commit = malloc(strlen(input) + strlen("git commit -m ''") + 1);
             sprintf(commit, "git commit -m '%s'", input);
             cmd[i] = commit;
         }
-        /*execute the commands*/
+        /* execute the commands */
         executeCommand(cmd[i]);
         free(input);
-    }  
-    /*free the commands and input*/
-    freeCommandsAndInputs(cmd, cmdlen, commit);
-    return (0);
+    }
+
+    /* Free the additional commands */
+    for (i = 3; i < cmdlen; i++)
+    {
+        free(cmd[i]);
+    }
+
+    /* Free the commands */
+    freeCommandsAndInputs(cmd, commit);
+
+    return 0;
 }
