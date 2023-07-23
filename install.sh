@@ -108,6 +108,9 @@ if [ $ipath ]; then
     fi
 fi
 
+printf "[*] Cleaning up..."
+rm -rf /tmp/gitpush.tmp || printf "[!] Faild to clean cache, please remove manully"
+
 printf "[*] Installing configs from /tmp/gitpush.tmp to $HOME/\n"
 printf "[!] All done. Exiting...\n"
 exit 0
