@@ -6,6 +6,7 @@ int main(void)
         "git status --short",
         "git add .",
         "git commit -m 'updated'",
+        "git push origin master",
         "sleep 2",
         "clear",
         "echo -e 'Happy coding King' ",
@@ -30,7 +31,7 @@ int main(void)
             sprintf(commit, "git commit -m '%s'", input);
             cmd[i] = commit;
         }
-        /* execute the commands */
+        /*execute the commands*/
         executeCommand(cmd[i]);
         free(input);
     }
