@@ -50,7 +50,7 @@ void freeCommandsAndInputs(char **commands, char *commit)
  */
 void githuberror(void)
 {
-    if (system("git > /dev/null 2>&1") == 100)
+    if (system("git > /dev/null 2>&1") == 127)
     {
         perror("Git is not detected or not in system path!\n");
         exit(127);
@@ -59,7 +59,7 @@ void githuberror(void)
         perror("Remote repo is not detected!\n");
         exit(128);
     }
-    if (system("git status --short > /dev/null 2>&1") == 128)
+    if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") == 1)
     {
         perror("Git repository not dectected, use git init to create a git repository\n");
         exit(128);

@@ -15,6 +15,12 @@ The **script** gives you to enter the name of the commit, and you can skip this 
 
 ## **run in linux**
 
+### **automatic installation script**
+
+```curl -fsSL https://github.com/div-styl/gitpush/raw/main/install.sh | sh```
+
+### manual install
+
 1. download the ```pusher``` and give the permission of executing.
 
 ```bash

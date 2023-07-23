@@ -40,7 +40,7 @@ done
 git add -A
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
-    echo -e "${REDBLOND}You are not in github repo so of course you going to see this msg"
+    echo -e "${REDBLOND}You are not in git repo so of course you going to see this msg"
     exit
 else
     git add -A
@@ -63,6 +63,7 @@ if [ $save_output != 0 ]; then
     git push
 elif [ $save_output == 0 ]; then
     clear
+    echo ${GREEN}pushed succesful
 else
     git push
 fi
