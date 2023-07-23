@@ -11,7 +11,6 @@ cyan="\033[0;36m"
 white="\033[0;37m"
 NC="\033[0m"
 Maginta="\033[0;35m"
-
 printf "${green}[*] Checking if system have required packages and commands\n${NC}"
 if command -v gh > /dev/null; then
     ghc=true
