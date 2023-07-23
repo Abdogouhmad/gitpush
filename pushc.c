@@ -7,13 +7,10 @@ int main(void)
         "git add .",
         "git commit -m 'updated'",
         "git push",
-        "sleep 2",
-        "clear",
-        "echo -e 'Happy coding King' ",
     };
     char input[MAX_INPUT]; /*Allocate input buffer in the main functio*/
     char *commit = NULL;
-    int cmdlen, i;
+    int i, cmdlen;
 
     /* handling the github errors */
     githuberror();
@@ -22,7 +19,7 @@ int main(void)
     cmdlen = sizeof(cmd) / sizeof(cmd[0]);
 
     /* loop over the Git commands */
-    for (i = 0; i < MAX_COMMANDS; i++)
+    for (i = 0; i < 4; i++)
     {
         getInput(input, sizeof(input)); /*Pass the input buffer to getInput*/
 

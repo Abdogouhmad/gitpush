@@ -36,9 +36,10 @@ void getInput(char *input, size_t size)
  */
 void freeCommandsAndInputs(char **commands, char *commit)
 {
+    int i = 0;
     if (commands == NULL || commit == NULL)
         return;
-    int i = 0;
+    
     for (; i < MAX_COMMANDS; i++)
     {
         free(commands[i]);

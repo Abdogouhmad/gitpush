@@ -9,7 +9,7 @@ YELLOW=\033[0;33m
 PROG= gitauto
 SRC= $(wildcard *.c)
 OBJ= $(SRC:.c=.o)
-FILES = $(OBJ) $(PROG)
+FILES = $(OBJ)
 #COMPILER variable
 
 CC= cc
