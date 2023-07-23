@@ -8,9 +8,9 @@ NC='\033[0m' # No Color
 
 # Adding all files
 #customed files
-echo -e ${YelBLOND}Hello KING/QUEEN, let me show your directory first and tell me what to add!
+echo -e ${YelBLOND}Hello KING/QUEEN, let me show your the changes you made 1st!
 echo -e ${NC}
-ls -la
+git status --short
 #condition goes here
 
 echo -e do you wanna add specific file [y/n]? #specail msg for specail codition/situation
