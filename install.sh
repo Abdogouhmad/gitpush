@@ -64,30 +64,30 @@ if [ $ghc != true ]; then
     fi
 fi
 
-if [ -e /tmp/gitpush.tmp ]; then
-    printf "${red}[!] ${Maginta}/tmp/gitpush.tmp${yellow} exist, deleting\n ${NC}"
-    rm -rf /tmp/gitpush.tmp
+if [ -e /tmp/src ]; then
+    printf "${red}[!] ${Maginta}/tmp/src${yellow} exist, deleting\n ${NC}"
+    rm -rf /tmp/src
 fi
 
 
-printf "${green} [*] Cloning gh repo into ${Maginta}/tmp/gitpush.tmp\n ${NC}"
+printf "${green}[*] Cloning gh repo into ${Maginta}/tmp/src\n ${NC}"
 if [ $ghc = true ]; then
-    gh repo clone div-styl/gitpush /tmp/gitpush.tmp #|| ec=$?; printf "An error had occured during gh repo clone dotfiles\n"; exit $ec
+    gh repo clone div-styl/gitpush /tmp/src #|| ec=$?; printf "An error had occured during gh repo clone dotfiles\n"; exit $ec
     if [ ! -e /tmp/dots.tmp ]; then
         printf "${red}[!] ${Maginta}src${yellow} did not clone Successfully"
         exit 1
     fi
 else
-    git clone https://github.com/div-styl/gitpush.git /tmp/gitpush.tmp #|| ec=$?; printf "An error had occured during git clone\n"; exit $ec
-    if [ ! -e /tmp/gitpush.tmp ]; then
+    git clone https://github.com/div-styl/gitpush.git /tmp/src #|| ec=$?; printf "An error had occured during git clone\n"; exit $ec
+    if [ ! -e /tmp/src ]; then
         printf "${red}[!] ${Maginta}src${yellow} did not clone Successfully from git\n ${NC}"
         exit 1
     fi
 fi
 
-cd /tmp/gitpush.tmp
+cd /tmp/src
 printf "${green}[*] Building files... ${NC}"
-make || ec=$?; printf "${red}[!] An error had occured during make\ncheckout in ${Maginta}/tmp/gitpush.tmp${yellow}... ${NC}"; cd -; exit $ec
+make || ec=$?; printf "${red}[!] An error had occured during make\ncheckout in ${Maginta}/tmp/src${yellow}... ${NC}"; cd -; exit $ec
 cd -
 
     printf "${blue}[?] Install into 1. ${Maginta}/usr/bin${red} 2. ${Maginta}/usr/local/bin${blue}?(1/2):  ${NC}"
@@ -110,17 +110,17 @@ if [ $ipath ]; then
         elif [ $ipath -eq 2 ]; then
             ipath="/usr/local/bin"
         if [ $installc ]; then
-            printf "${green}[*] Installing ${Maginta}/tmp/gitpush.tmp/gitauto${green} into ${Maginta}$ipath ${green}with \`install\` ${NC}"
-            pkexec install /tmp/gitpush.tmp/gitauto $ipath
+            printf "${green}[*] Installing ${Maginta}/tmp/src/gitauto${green} into ${Maginta}$ipath ${green}with \`install\` ${NC}"
+            pkexec install /tmp/src/gitauto $ipath
         elif [ ! $installc ]; then
-            printf "${green}[*] Installing ${Maginta}/tmp/gitpush.tmp/gitauto${green} into ${Maginta}$ipath ${green}with \`cp\` ${NC}"
-            pkexec cp /tmp/gitpush.tmp/gitauto $ipath
+            printf "${green}[*] Installing ${Maginta}/tmp/src/gitauto${green} into ${Maginta}$ipath ${green}with \`cp\` ${NC}"
+            pkexec cp /tmp/src/gitauto $ipath
         fi
     fi
 fi
 
 printf "${green}[*] Cleaning up... ${NC}"
-rm -rf /tmp/gitpush.tmp || printf "${red}[!] Faild to clean cache, please remove manully"
+rm -rf /tmp/src || printf "${red}[!] Faild to clean cache, please remove manully"
 
 printf "${green}[!] All done. Exiting...\n ${NC}"
 exit 0
