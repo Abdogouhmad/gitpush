@@ -1,7 +1,8 @@
 # **pushing to github using c and bash**
 
 **hello LAZY people**
-this program is made using c language under ```system()``` function, which gives the abiltity to interect with your system. In addition, I have upload a new bash script which does the same task but little more advance *check by yourself :*
+**TL;DR**
+this gitauto(c) program is made using c language under ```system()``` function, which gives the abiltity to interect with your system. In addition, I have upload a new bash script which does the same task but with a little fun *check by yourself :* I have been working lately on bash script that do a humble task for adding, commiting and push.
 
 ![lazy asf](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeG05c3lrMmltaGRvd2M1eDh4bGJwejNhcnB2bWV6aGJ6MXVteGE4MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Hn1VPQRmzEZUc/giphy.gif)
 
@@ -35,34 +36,22 @@ make build
 
 3. copy the executable to where you want
 
+##### with install:
 ```bash
-#assuming that you clone the repo into donwload directory and want
-# to move the executable into desktop
+install /path/to/gitauto /usr/bin # gitauto or push.sh. /usr/bin or /usr/local/bin
+```
 
-cp ~/Download/gitpush/gitauto ~/Desktop/
+##### with cp
+
+```bash
+cp /path/to/gitauto /usr/bin # gitauto or push.sh. /usr/bin or /usr/local/bin
+```
 
 ``` 
 
 4. then run it using the simple syntaxt that is known:
 
 ```bash
-./gitauto
+./gitauto # or ./push.sh
 
-```
-## **bash script is here!**
-
-I have been working lately on bash script that do a humble task for adding, commiting and push.
-
-```bash
-# if it is not executable make it then by:
-chmod +x push.sh
-# run it then
-./push.sh
-```
-
-if you are using **zsh** it is heighly recommanded to put in your config ``~/.zshrc`` but if you don't have zsh then it still the same command.
-
-```bash
-# you can name it what ever you want
-alias push='~/Desktop/push.sh'
 ```
