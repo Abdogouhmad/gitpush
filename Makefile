@@ -8,6 +8,8 @@ YELLOW=\033[0;33m
 #PROGRAM NAME
 PROG= gitauto
 SRC= $(wildcard *.c)
+SUMFILE= checksum.md5
+SUMFILEFDIR= /tmp/src.tmp
 OBJ= $(SRC:.c=.o)
 FILES = $(OBJ)
 #COMPILER variable
@@ -20,9 +22,9 @@ CFLAGS= -Wall -pedantic -Wextra -std=gnu89 -g
 build: ${PROG}
 
 ${PROG}: ${OBJ}
-	@echo -e "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}"
+	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}"
 	@$(CC) $(CFLAGS) -o $@ $^
-	@echo -e "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}"
+	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
@@ -30,14 +32,29 @@ ${PROG}: ${OBJ}
 run: build
 	@./$(PROG)
 
-clear:
-	@echo -e "$(YELLOW)Cleaning ...$(NC)"
+clean:
+	@printf "$(YELLOW)Cleaning ...$(NC)"
 	@rm -f $(FILES)
-	@if [ $$? -eq 0 ]; then echo -e "$(MAGENTA)Files $(FILES) are removed successfully"; else @echo -e "$(RED)Error: Files $(FILES) are not removed"; fi
+	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)Files $(FILES) are removed successfully"; else printf "$(RED)Error: Files $(FILES) are not removed"; fi
+
+generatesum:
+	@printf "$(YELLOW)In process ... to generate all files into $(SUMFILE)"
+	@md5sum ./* > $(SUMFILE)
+	@if [ $$? -eq 0 ]; then @sed -i "s,./,/tmp/$(SUMFILEFDIR)/,g" $(SUMFILE) && printf "$(MAGENTA)$(SUMFILE) is generated sucessfully"; else printf "$(RED)Error: $(SUMFILE) is not generated successfully or sed fdir is not successful; fi
+
+
+checksum:
+	@printf "$(YELLOW)Checking with md5sum ...$(NC)"
+	@md5sum --check $(SUMFILE) --quiet
+	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)checksum, md5sum checked with $(SUMFILE) sucesfully"; else printf "$(RED)Error: checkedsum, md5sum faild checking with $(SUMFILE); fi
+
+
+
+
 #@if [ $$? -eq 0 ]; then\ 
-#	@echo -e "$(MAGENTA)Files $(files) are removed successfully"; \
+#	printf "$(MAGENTA)Files $(files) are removed successfully"; \
 #else \
-#	@echo -e "$(RED)Error: Files $(files) are not removed"; \
+#	printf "$(RED)Error: Files $(files) are not removed"; \
 #fi
 
-.PHONY: clear run build
+.PHONY: clear run build checksum
