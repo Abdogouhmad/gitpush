@@ -4,8 +4,8 @@ int main(void)
 {
     char *cmd[MAX_COMMANDS] = {
         "git status --short",
-        "git add .",
-        "git commit -m 'updated'",
+		"git add .",
+        "git commit -am 'updated'",
         "git push",
     };
     char input[MAX_INPUT]; /*Allocate input buffer in the main functio*/
@@ -27,7 +27,7 @@ int main(void)
         {
             free(commit); /* Free the previous commit memory */
             commit = malloc(strlen(input) + strlen("git commit -m ''") + 1);
-            sprintf(commit, "git commit -m '%s'", input);
+            sprintf(commit, "git commit -am '%s'", input);
             cmd[i] = commit;
         }
 
