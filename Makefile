@@ -12,6 +12,7 @@ SUMFILE = checksum.md5
 OBJ = $(SRC:.c=.o)
 FILES = $(OBJ)
 DIR = $(shell pwd)
+INSTALLDIR = /usr/bin
 #COMPILER variable
 
 CC = cc
@@ -19,8 +20,8 @@ CFLAGS = -Wall -pedantic -Wextra -std=gnu89 -g
 
 #rules and recipes
 
-build: ${PROG} checksum clean 
-build: ${PROG}
+build: checksum ${PROG} clean 
+#run: checksum ${PROG} build clean
 
 ${PROG}: ${OBJ}
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
@@ -50,6 +51,11 @@ checksum:
 	@printf "$(YELLOW)verifying with md5sum... $(NC)\n"
 	@md5sum --check $(SUMFILE) > /dev/null 2>&1
 	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)checksum, md5sum checked with $(SUMFILE) successfully\n"; else printf "$(RED)Error: checkedsum, md5sum faild checking with $(SUMFILE)\n"; fi
+
+install:
+	@printf "$(YELLOW)Installing into $(INSTALLDIR)... $(NC)\n"
+	@install $(PROG) $(INSTALLDIR)
+	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)Installed sucessfully.\n"; else printf "$(RED)Error: install faild to install into $(INSTALLDIR), are you root?\m"; fi
 
 
 
