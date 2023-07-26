@@ -9,7 +9,7 @@ YELLOW=\033[0;33m
 PROG = gitauto
 SRC = $(wildcard *.c)
 SUMFILE = checksum.md5
-OBJ = $(SRC:.c=.o)
+#OBJ = $(SRC:.c=.o)
 FILES = $(OBJ)
 DIR = $(shell pwd)
 INSTALLDIR = /usr/bin
@@ -20,16 +20,16 @@ CFLAGS = -Wall -pedantic -Wextra -std=gnu89 -g
 
 #rules and recipes
 
-build: checksum ${PROG} clean 
-#run: checksum ${PROG} build clean
+build: checksum ${PROG} #clean 
+#run: checksum ${PROG} build #clean
 
-${PROG}: ${OBJ}
+{PROG}:
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
 	@$(CC) $(CFLAGS) -o $@ $^
 	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}\n"
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -c -o $@ $<
+#%.o: %.c
+#	@$(CC) $(CFLAGS) -c -o $@ $<
 
 run: build
 	@./$(PROG)
