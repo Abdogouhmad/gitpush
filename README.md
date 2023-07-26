@@ -8,8 +8,8 @@ this gitauto(c) program is made using c language under ```system()``` function, 
 
 ## cmd used in script
 
-1. ```git add -A``` this cmd tracked and add all files that you made change in.
-2. ```git commit -m' '``` this cmd gives a name to your changes you made and you can preview them by the cmd ```git log```.
+1. ```git add -A```(if needed), which addes all files that are not synced with git.
+2. ```git commit -am' '``` this cmd gives a name to your changes you made and you can preview them by the cmd ```git log```.
 3. ```git push``` this cmd send changes to github repo.
 
 The **script** gives you to enter the name of the commit, and you can skip this commit as long you are satisfied with the given name _updated_ !! However, you can change the name of the commit. See the **script.c** line: **12**

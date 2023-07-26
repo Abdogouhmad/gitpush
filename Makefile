@@ -44,7 +44,7 @@ generatesum:
 	@rm -f $(FILES)
 	@printf "$(YELLOW)In process ... to generate all files into $(SUMFILE)\n"
 	@md5sum ./* > $(SUMFILE)
-	@if [ $$? -eq 0 ]; then sed -i 's,./,$(DIR),g; /gitauto/d' $(SUMFILE) && printf "$(MAGENTA)$(SUMFILE) is generated sucessfully\n"; else printf "$(RED)Error: $(SUMFILE) is not generated successfully or sed fdir is not successful\n"; fi
+	@if [ $$? -eq 0 ]; then sed -i 's,./,$(DIR),g; /gitauto/d' $(SUMFILE) && printf "$(MAGENTA)$(SUMFILE) is generated sucessfully${NC}\n"; else printf "$(RED)Error: $(SUMFILE) is not generated successfully or sed fdir is not successful\n${NC}"; fi
 
 
 checksum:

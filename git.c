@@ -11,16 +11,32 @@ void executeCommand(const char *command)
     system(command);
 }
 /**
- * getInput - get the input from the user
+ * commitInput - get the input from the user
  * @input: buffer to store the input
  * @size: size of the buffer
  * Return: void
  */
-void getInput(char *input, size_t size)
+void commitInput(char *input, size_t size)
 {
     if (input == NULL || size <= 0)
         return;
     printf("Enter the commit name (or leave empty for 'update'): ");
+    getline(&input, &size, stdin);
+
+    /* Remove trailing newline character */
+    input[strcspn(input, "\n")] = '\0';
+}
+/**
+ * nghfilesInput - get the input from the user
+ * @input: buffer to store the input
+ * @size: size of the buffer
+ * Return: void
+ */
+void nghfilesInput(char *input, size_t size)
+{
+    if (input == NULL || size <= 0)
+        return;
+    printf("Do you want to add those un-sync with git, but under git directory files? (leave empty for 'y(yes)'): ");
     getline(&input, &size, stdin);
 
     /* Remove trailing newline character */
@@ -51,7 +67,7 @@ void freeCommandsAndInputs(char **commands, char *commit)
 /**
  *
  */
-void githuberror(void)
+void giterror(void)
 {
     if (system("git > /dev/null 2>&1") == 127)
     {
