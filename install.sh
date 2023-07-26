@@ -17,10 +17,10 @@ installbinpath="$tmpdir/gitauto"
 installshpath="$tmpdir/push.sh"
 
 
-function install() {
-	  ipath=0
+function installexec() {
+    ipath=0
     while [ ! $ipath ] || [ ! $ipath -eq 1 ] || [ ! $ipath -eq 2 ]; do
-        printf "${yellow}[!] Invalid choice, please select between 1 or 2\n"
+		printf "${blue}[+] Where would you like to install it? (1. ${Maginta}/usr/bin${green} 2. ${Maginta}/usr/local/bin${green}): "
         read ipath;
     done
     if [ $ipath -eq 1 ] || [ $ipath -eq 2 ]; then
@@ -33,19 +33,19 @@ function install() {
     if [ $installc ]; then
 				if [ $1 -eq 1 ]; then
 				    printf "${green}[*] Installing ${Maginta}$installbinpath${green} into ${Maginta}$ipath ${green}with \`install\` ${NC}"
-				    pkexec install $installbinpath $ipath
+					$elevate "install $installbinpath $ipath" || sudo install $installbinpath $ipath || printf "${red}${bold}Faild to install into path with elevated(with ${Maginta}$elevate${green}) privilege\n"; exit 1
 				elif [ $1 -eq 2 ]; then
 				    printf "${green}[*] Installing ${Maginta}$installshpath${green} into ${Maginta}$ipath ${green}with \`install\` ${NC}"
-				    pkexec install $installshpath $ipath
+				    $elevate "install $installshpath $ipath" || sudo install $installshpath $ipath || printf "${red}${bold}Faild to install into path with elevated(with ${Maginta}$elevate${green}) privilege\n"; exit 1
 				fi
     elif [ ! $installc ]; then
 				if [ $1 -eq 1 ]; then
 				    printf "${green}[*] Installing ${Maginta}$installbinpath${green} into ${Maginta}$ipath ${green}with \`cp\` ${NC}"
-				    pkexec cp $installbinpath $ipath
+				    $elevate "cp $installbinpath $ipath" || sudo cp $installbinpath $ipath || printf "${red}${bold}Faild to install into path with elevated(with ${Maginta}$elevate${green}) privilege\n"; exit 1
 				fi
 				if [ $1 -eq 2 ]; then
 				    printf "${green}[*] Installing ${Maginta}$installshpath${green} into ${Maginta}$ipath ${green}with \`cp\` ${NC}"
-				    pkexec cp $installshpath $ipath
+				    $elevate "cp $installshpath $ipath" || sudo cp $installshpath $ipath || printf "${red}${bold}Faild to install into path with elevated(with ${Maginta}$elevate${green}) privilege\n"; exit 1
 				fi
 		fi
 }
@@ -62,6 +62,31 @@ fi
 if ! command -v cc && ! command -v gcc > /dev/null; then
     printf "${red}${bold}[!] ${Maginta}c compiler(gcc)${red}${bold}: command not found\nthis program need to compile c program, please install gcc compiler\n${NC}"
     exit 127
+fi
+if command -v install > /dev/null; then
+    installc=true
+fi
+if ! command -v cp > /dev/null; then
+    printf "${red}${bold}[!] ${Maginta}cp${red}${bold}: command not found\n ${NC}"
+    exit 127
+fi
+if ! command -v rm > /dev/null; then
+    exit 127
+fi
+if ! command -v pkexec > /dev/null; then
+    if ! command -v gksudo > /dev/null; then
+		if ! command -v sudo > /dev/unll; then
+		    if ! command -v su > /dev/null; then
+				printf "${red}${bold}[!] Could not find any command to elevate which is required..."
+		    else
+				elevate="su -c"
+			fi
+	    else
+		    elevate="sudo"
+    else
+		elevate="gksudo"
+else
+    elevate="pkexec"
 fi
 
 if [ $ghc != true ]; then
@@ -89,13 +114,6 @@ if [ $ghc != true ]; then
             printf "${red}${bold}[!] Please install ${Maginta}git${red}${bold} with your package manager(git-scm.com/book/en/v2/getting-started-installing-git)\n ${NC}"
             exit 127
         fi
-    elif command -v install > /dev/null; then
-        installc=true
-    elif ! command -v cp > /dev/null; then
-        printf "${red}${bold}[!] ${Maginta}cp${red}${bold}: command not found\n ${NC}"
-        exit 127
-    elif ! command -v rm > /dev/null; then
-        exit 127
     fi
 fi
 
@@ -136,6 +154,7 @@ else
     fi
 fi
 
+
 if [ $cv ]; then
 	if [ -d $tmpdir ]; then
 		printf "${green}[*] Building ${Maginta}files${green} with ${Maginta}make${green}... ${NC}"
@@ -144,16 +163,16 @@ if [ $cv ]; then
 		printf "${red}${bold}[!] $tmpdir directory not found..."
 		exit 1
 	fi
-	install 1
+	installexec 1
 elif [ $bv ]; then
     if [ -d $tmpdir ]; then
-				install 2
+		installexec 2
     elif [ ! -d $tmpdir ]; then
 	printf "${red}${bold}[!] $tmpdir directory not found..."
 	exit 1
     fi
 else
-    printf "${red}${bold}[!] An unexpected error had occured..."
+    printf "${red}${bold}[!] An unexpected error had occured about what version of installation would you like..."
     exit -255
 fi
 
