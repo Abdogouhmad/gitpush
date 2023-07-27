@@ -8,7 +8,7 @@ YELLOW=\033[0;33m
 #PROGRAM NAME
 PROG = gitauto
 SRC = $(wildcard *.c)
-SUMFILE = checksum.md5
+SUMFILE = sum.md5
 #OBJ = $(SRC:.c=.o)
 FILES = $(OBJ)
 DIR = $(shell pwd)
@@ -43,8 +43,10 @@ generatesum:
 	@rm -f checksum.md5
 	@rm -f $(FILES)
 	@printf "$(YELLOW)In process ... to generate all files into $(SUMFILE)\n"
+	@sed -i 's,./,$(DIR),g; /gitauto/d' $(SUMFILE)
 	@md5sum ./* > $(SUMFILE)
-	@if [ $$? -eq 0 ]; then sed -i 's,./,$(DIR),g; /gitauto/d' $(SUMFILE) && printf "$(MAGENTA)$(SUMFILE) is generated sucessfully${NC}\n"; else printf "$(RED)Error: $(SUMFILE) is not generated successfully or sed fdir is not successful\n${NC}"; fi
+	#@if [ $$? -eq 0 ]; then sed -i 's,./,$(DIR),g; /gitauto/d' $(SUMFILE) && printf "$(MAGENTA)$(SUMFILE) is generated sucessfully${NC}\n"; else printf "$(RED)Error: $(SUMFILE) is not generated successfully or sed fdir is not successful\n${NC}"; fi
+	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)$(SUMFILE) is generated sucessfully${NC}\n"; else printf "$(RED)Error: $(SUMFILE) is not generated successfully or sed fdir is not successful\n${NC}"; fi
 
 
 checksum:
