@@ -10,7 +10,7 @@ int main(void)
     };
 
     /* check pre-required gits */
-    giterror();
+    checkgit();
     
     /* count the size of command */
     cmdlen = sizeof(cmd) / sizeof(cmd[0]);
@@ -20,6 +20,7 @@ int main(void)
     {
 		if (i == 2) {
 		    if (system("output=$(git add --dry-run -A) if [ $output ]; then exit 0; else exit 1; fi")) {
+				char *input = NULL;
                 while (input != "y" && input != "yes" && input != "n" && input != "no") {
 				    nghfilesInput(input, sizeof(input)); /*Pass the input buffer to getInput*/
 				}

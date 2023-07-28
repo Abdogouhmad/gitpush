@@ -67,7 +67,7 @@ void freeCommandsAndInputs(char **commands, char *commit)
 /**
  *
  */
-void giterror(void)
+void checkgit(void)
 {
     if (system("git > /dev/null 2>&1") == 127)
     {

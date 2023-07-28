@@ -20,10 +20,10 @@ CFLAGS = -Wall -pedantic -Wextra -std=gnu89 -g
 
 #rules and recipes
 
-build: checksum ${PROG} #clean 
+build: checksum compile #clean 
 #run: checksum ${PROG} build #clean
 
-{PROG}:
+compile:
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
 	@$(CC) $(CFLAGS) -o $@ $^
 	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}\n"

@@ -17,5 +17,5 @@ void executeCommand(const char *command);
 void freeCommandsAndInputs(char **commands, char *commit);
 void commitInput(char *input, size_t size);
 void nghfilesInput(char *input, size_t size);
-void giterror(void);
+void checkgit(void);
 #endif
