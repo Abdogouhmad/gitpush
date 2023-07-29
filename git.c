@@ -69,7 +69,7 @@ void freeCommandsAndInputs(char **commands, char *commit)
  */
 void checkgit(void)
 {
-    if (system("git > /dev/null 2>&1") == 127)
+    if (system("file .git > /dev/null 2>&1") == 127)
     {
         perror("Git is not detected or not in system path!\n");
         exit(127);
