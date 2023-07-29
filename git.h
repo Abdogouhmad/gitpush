@@ -8,10 +8,10 @@
 #define MAX_COMMANDS 5
 #define MAX_INPUT 1024
 /*Variable define*/
-char input[MAX_INPUT]; /*Allocate input buffer in the main functio*/
-char *commit = NULL;
-char *nghfiles = NULL;
-int i, cmdlen;
+static char input[MAX_INPUT]; /*Allocate input buffer in the main functio*/
+static char *commit = NULL;
+static char *nghfiles = NULL;
+static int i, cmdlen;
 /*prototypes*/
 void executeCommand(const char *command);
 void freeCommandsAndInputs(char **commands, char *commit);
