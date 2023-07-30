@@ -1,53 +1,62 @@
-#!/usr/bin/env bash
-#colorization of Error messages
+#!/usr/bin/bash
+#coloring
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No
+#end coloring
 
-REDBLOND="\e[31;5;220m"
-YelBLOND="\e[38;5;220m"
-GREEN='\e[38;5;186m'
-NC='\033[0m' # No Color
+#PRINTING WITH COLORS
 
-# Adding all files
-#customed files
-echo -e ${YelBLOND}Hello KING/QUEEN, let me show your the changes you made 1st!
-echo -e ${NC}
+print_color(){
+  local color=$1
+  local text=$2
+  local NOC=$NC
+  printf "$color""$text""$NOC"
+}
+# end func
 git status --short
 #condition goes here
 
-echo -e do you wanna add specific file [y/n]? #specail msg for specail codition/situation
-read yes
-while [ $yes == 'y' ]
+print_color "$YELLOW" "[?] Do you wanna add special file [y/n]: "
+read -r -n1 yes  #specail msg for specail codition/situation
+echo
+while [ "$yes" == 'y' ]
         do
-            echo -e ${REDBLOND}here are the changes you made:
+            print_color "$RED" "[!]here are the changes you made: \n"
             git status --short
-            echo -e ${GREEN}add the file name or exit to add everything:
-            read filename #the file name observed at the beginning!
-        if [ $filename == 'exit' ]
+            print_color "$GREEN""[*]add the file name or exit to add everything: \n"
+            read -r filename #the file name observed at the beginning!
+        if [ "$filename" == 'exit' ]
             then
                 exit
-        elif [ $filename != 'exit' ]; then
-            git add $filename
-            echo give the commit name:
-            read cmt
+        elif [ "$filename" != 'exit' ]; then
+            git add "$filename"
+            print_color "$PURPLE" "[?]give the commit name: \n"
+            read -r cmt
             git commit -m "$cmt"
             git push
         fi
             clear
-            echo -e ${YelBLOND}Happy coding KING/QUEEN!
+            print_color "$CYAN" "[<3]Happy coding KING\n"
             exit
 done
 
 # second choice code
-git add -A
+git add .
 add_output=$? # Adding output for condition
 if [ $add_output -ne 0 ]; then
-    echo -e "${REDBLOND}You are not in git repo so of course you going to see this msg"
-    exit
+    print_color "$RED" "[!]repo not detected use git init to create a repo \n"
+    exit 1
 else
-    git add -A
+    git add .
 fi
 #commiting the changes
-echo what is your commit name?
-read Cname #git the commit name for user
+print_color "$CYAN" "[?]what is your commit name in case you gave empty input your cmit is: new upload: \n"
+read -r -e  Cname #git the commit name for user
 if [ -z "$Cname" ]; then
     git commit -m "new upload!"
 else
@@ -59,11 +68,10 @@ fi
 git push
 save_output=$? #storing the ouput for the condition
 if [ $save_output != 0 ]; then
-    echo ${REDBLOND}there is issue with push i will push again hold!
+    print_color "$RED""[!]there is issue with push i will push again hold!\n"
     git push
 elif [ $save_output == 0 ]; then
     clear
-    echo ${GREEN}pushed succesful
 else
     git push
 fi
@@ -71,10 +79,11 @@ fi
 #checking the changes
 
 git status
-if [ $? -ne 0 ]; then
-    echo ${REDBLOND}Hmmmm? something odd here try to figure it out!
+if [ "$?" -ne 0 ] ; then
+     print_color "$RED""[!]Hmmmm? something odd here try to figure it out!\n"
+    exit 1
 else
-    echo OOOH it works
+  print_color "$CYAN" "pushed successfully \n"
 fi
 
 #leaving the whole shit
@@ -82,4 +91,4 @@ fi
 echo clearing after 3s
 sleep 3
 clear
-echo -e ${YelBLOND}Happy coding King/Queen!
+print_color "$BLUE" "Happy coding KING\n"
