@@ -6,9 +6,14 @@
  */
 void executeCommand(const char *command)
 {
-    if (command == NULL)
-        return;
-    system(command);
+  int result = system(command);
+  if (result != 0)
+  {
+    perror("Error: Unable to exexute commands\n");
+    exit(1);
+  }
+  if (command == NULL)
+    return;
 }
 /**
  * commitInput - get the input from the user
