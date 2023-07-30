@@ -8,7 +8,6 @@ YELLOW=\033[0;33m
 #PROGRAM NAME
 PROG = gitauto
 SRC = $(wildcard *.c)
-SUMFILE = sum.md5
 OBJ = $(SRC:.c=.o)
 FILES = $(OBJ)
 DIR = $(shell pwd)
@@ -20,9 +19,9 @@ CFLAGS = -Wall -pedantic -Wextra -std=gnu89 -g
 
 #rules and recipes
 compile: ${PROG}
-${PROG}: ${OBJ}c
+${PROG}: ${OBJ}
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
-	@$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}\n"
 
 %.o: %.c

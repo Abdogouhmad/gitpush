@@ -1,91 +1,60 @@
 #include "git.h"
 /**
- * executeCommand - execute a command
- * @command: command to execute
- * Return: void
- */
-void executeCommand(const char *command)
-{
-  int result = system(command);
-  if (result != 0)
-  {
-    perror("Error: Unable to exexute commands\n");
-    exit(1);
-  }
-  if (command == NULL)
-    return;
-}
-/**
- * commitInput - get the input from the user
- * @input: buffer to store the input
- * @size: size of the buffer
- * Return: void
- */
-void commitInput(char *input, size_t size)
-{
-    if (input == NULL || size <= 0)
-        return;
-    printf("Enter the commit name (or leave empty for 'update'): ");
-    getline(&input, &size, stdin);
-
-    /* Remove trailing newline character */
-    input[strcspn(input, "\n")] = '\0';
-}
-/**
- * nghfilesInput - get the input from the user
- * @input: buffer to store the input
- * @size: size of the buffer
- * Return: void
- */
-void nghfilesInput(char *input, size_t size)
-{
-    if (input == NULL || size <= 0)
-        return;
-    printf("Do you want to add those un-sync with git, but under git directory files? (leave empty for 'y(yes)'): ");
-    getline(&input, &size, stdin);
-
-    /* Remove trailing newline character */
-    input[strcspn(input, "\n")] = '\0';
-}
-
-
-/**
- * freeCommandsAndInputs - free the commands and the input
- * @commands: the commands
- * @commit: the commit message
- * Return: void
- */
-void freeCommandsAndInputs(char **commands, char *commit)
-{
-    int i = 0;
-    if (commands == NULL || commit == NULL)
-        return;
-    
-    for (; i < MAX_COMMANDS; i++)
-    {
-        free(commands[i]);
-    }
-    free(commit);
-}
-
-
-/**
- *
+ * checkgit - Check if Git is properly set up
+ * @void
+ * Returns: void
  */
 void checkgit(void)
 {
-    if (system("file .git > /dev/null 2>&1") == 127)
+    if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") != 0)
     {
-        perror("Git is not detected or not in system path!\n");
-        exit(127);
-    }
-    if (system("git ls-remote > /dev/null 2>&1") == 128) {
-        perror("Remote repo is not detected!\n");
-        exit(128);
-    }
-    if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") == 1)
-    {
-        perror("Git repository not dectected, use git init to create a git repository\n");
-        exit(128);
+        fprintf(stderr, "Git repository not detected. Use 'git init' to create a git repository\n");
+        exit(EXIT_FAILURE);
     }
 }
+
+/**
+ * commitAndPush - Perform the Git commit and push operations
+ * @const char *commit_message: Commit message
+ * Returns: void
+ * */
+void commitAndPush(const char *commit_message)
+{
+    char command[512];
+
+    /*Add all changes to the staging area (index)*/
+    system("git add -A");
+
+    /*Commit with the provided message*/
+    sprintf(command, "git commit -m \"%s\"", commit_message);
+    if (system(command) != 0)
+    {
+        fprintf(stderr, "Failed to commit changes\n");
+        exit(EXIT_FAILURE);
+    }
+
+    /*Push the changes to the remote*/
+    system("git push");
+
+    printf("Commit and push successful!\n");
+}
+/**
+ * getCommitMessage - Get the commit message from the user
+ * @char *message: Commit message
+ * @size_t size: Commit message size
+ * Returns: void
+ * */
+
+void getCommitMessage(char *message, size_t size) 
+{
+    printf("Enter the commit message (or leave empty for 'update'): ");
+    if (getline(&message, &size, stdin) == -1)
+    {
+        fprintf(stderr, "Error reading input\n");
+        exit(EXIT_FAILURE);
+    }
+
+    /*Remove trailing newline character*/
+    message[strcspn(message, "\n")] = '\0';
+}
+

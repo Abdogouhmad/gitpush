@@ -7,15 +7,8 @@
 #include <unistd.h>
 #define MAX_COMMANDS 5
 #define MAX_INPUT 1024
-/*Variable define*/
-static char input[MAX_INPUT]; /*Allocate input buffer in the main functio*/
-static char *commit = NULL;
-static char *nghfiles = NULL;
-static int i, cmdlen;
 /*prototypes*/
-void executeCommand(const char *command);
-void freeCommandsAndInputs(char **commands, char *commit);
-void commitInput(char *input, size_t size);
-void nghfilesInput(char *input, size_t size);
+void commitAndPush(const char *commit_message);
 void checkgit(void);
+void getCommitMessage(char *message, size_t size);
 #endif
