@@ -21,7 +21,7 @@ CFLAGS = -Wall -pedantic -Wextra -std=gnu89 -g
 compile: ${PROG}
 ${PROG}: ${OBJ}
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
-	$(CC) $(CFLAGS) -o $@ $^
+	@$(CC) $(CFLAGS) -o $@ $^
 	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}\n"
 
 %.o: %.c
@@ -30,13 +30,13 @@ ${PROG}: ${OBJ}
 run: compile
 	@./$(PROG)
 
-clean:
+clean: 
 	@printf "$(YELLOW)Cleaning ...$(NC)\n"
 	@rm -f $(FILES)
 	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)Files $(FILES) are removed successfully\n"; else printf "$(RED)Error: Files $(FILES) are not removed\n"; fi
 
 
-install: compile
+install: compile clean 
 	@printf "$(YELLOW)Installing into $(INSTALLDIR)... $(NC)\n"
 	@install $(PROG) $(INSTALLDIR)
 	@if [ $$? -eq 0 ]; then printf "$(MAGENTA)Installed sucessfully.\n"; else printf "$(RED)Error: install faild to install into $(INSTALLDIR), are you root?\m"; fi
