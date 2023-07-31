@@ -3,19 +3,18 @@
  * main - main function
  * return: 0
  */
-int main(void)
-{
-    char commit_message[256] = "update"; /*Default commit message*/
-    size_t size = sizeof(commit_message);
+int main() {
+    char *commit_message = NULL;
+    size_t size = 0;
 
-    /* Check if Git is properly set up*/
-    checkgit();
+    /*Get the commit message from the user*/
+    getInput(&commit_message, &size);
 
-    /* Get the commit message from the user*/
-    getCommitMessage(commit_message, size);
-
-    /*Perform Git commit and push*/
-    commitAndPush(commit_message);
+    /* Call the commiting function with the commit message*/
+    gitcmt(commit_message, size);
+    execute("git push");
+    /* Cleanup*/
+    free(commit_message);
 
     return 0;
 }

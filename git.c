@@ -1,4 +1,5 @@
 #include "git.h"
+
 /**
  * checkgit - Check if Git is properly set up
  * @void
@@ -56,5 +57,62 @@ void getCommitMessage(char *message, size_t size)
 
     /*Remove trailing newline character*/
     message[strcspn(message, "\n")] = '\0';
+}
+/*--------------------------------------------------------------------------------------*/
+/**
+  * execute - Execute a command
+  * @const char *command: Command to execute
+  * Returns: void
+*/
+void execute(const char *command)
+{
+  int output = system(command);
+  if (output != 0)
+  {
+    fprintf(stderr, "Failed to execute '%s'\n", command);
+    exit(EXIT_FAILURE);
+  }
+  if (command[0] != '\0' && command == NULL)
+    return;
+}
+
+/**
+  * getInput - Get the commit message from the user
+  * @char **commit: Commit message
+  * @size_t *commtlen: Commit message size
+  * Return: void
+*/
+/**
+ * getInput - Get the commit message from the user
+ * @commit: Commit message
+ * @commtlen: Commit message size
+ * Return: void
+ */
+void getInput(char **commit, size_t *commtlen)
+{
+  printf("Enter the commit message (or leave empty for 'update'): ");
+  if (getline(commit, commtlen, stdin) == -1)
+  {
+    fprintf(stderr, "Error reading input\n");
+    exit(EXIT_FAILURE);
+  }
+  (*commit)[strcspn(*commit, "\n")] = '\0';
+
+  if ((*commit)[0] == '\0')
+  {
+    free(*commit);
+    *commit = strdup("update");
+    *commtlen = strlen(*commit);
+  }
+}
+
+void gitcmt(const char *commit_message, size_t lencmt)
+{
+    char git_command[MAX_INPUT];
+    snprintf(git_command, sizeof(git_command), "git commit -m \"%s\"", commit_message);
+
+    execute("git add .");
+
+    execute(git_command);
 }
 
