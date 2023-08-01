@@ -9,7 +9,7 @@ void checkgit(void)
 {
     if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") != 0)
     {
-        fprintf(stderr, RED"[!]Git repository not detected. Use 'git init' to create a git repository\n"NC);
+        fprintf(stderr, RED"[!] Git repository not detected. Use 'git init' to create a git repository\n" NC);
         exit(EXIT_FAILURE);
     }
 }
@@ -21,23 +21,23 @@ void checkgit(void)
  * */
 void commitAndPush(const char *commit_message)
 {
-    char command[512];
+  char command[512];
 
-    /*Add all changes to the staging area (index)*/
-    system("git add -A");
+  /*Add all changes to the staging area (index)*/
+  system("git add -A");
 
-    /*Commit with the provided message*/
-    sprintf(command, "git commit -m \"%s\"", commit_message);
-    if (system(command) != 0)
-    {
-        fprintf(stderr, "Failed to commit changes\n");
-        exit(EXIT_FAILURE);
-    }
+  /*Commit with the provided message*/
+  sprintf(command, "git commit -m \"%s\"", commit_message);
+  if (system(command) != 0)
+  {
+    fprintf(stderr, YELLOW"[?]Failed to commit changes\n"NC);
+    exit(EXIT_FAILURE);
+  }
 
-    /*Push the changes to the remote*/
-    system("git push");
+  /*Push the changes to the remote*/
+  system("git push");
 
-    printf("Commit and push successful!\n");
+  printf("Commit and push successful!\n");
 }
 /**
  * getCommitMessage - Get the commit message from the user
@@ -46,24 +46,24 @@ void commitAndPush(const char *commit_message)
  * Returns: void
  * */
 
-void getCommitMessage(char *message, size_t size) 
+void getCommitMessage(char *message, size_t size)
 {
-    printf("Enter the commit message (or leave empty for 'update'): ");
-    if (getline(&message, &size, stdin) == -1)
-    {
-        fprintf(stderr, "Error reading input\n");
-        exit(EXIT_FAILURE);
-    }
+  printf("Enter the commit message (or leave empty for 'update'): ");
+  if (getline(&message, &size, stdin) == -1)
+  {
+    fprintf(stderr, "Error reading input\n");
+    exit(EXIT_FAILURE);
+  }
 
-    /*Remove trailing newline character*/
-    message[strcspn(message, "\n")] = '\0';
+  /*Remove trailing newline character*/
+  message[strcspn(message, "\n")] = '\0';
 }
 /*--------------------------------------------------------------------------------------*/
 /**
-  * execute - Execute a command
-  * @const char *command: Command to execute
-  * Returns: void
-*/
+ * execute - Execute a command
+ * @const char *command: Command to execute
+ * Returns: void
+ */
 void execute(const char *command)
 {
   int output = system(command);
@@ -77,11 +77,11 @@ void execute(const char *command)
 }
 
 /**
-  * getInput - Get the commit message from the user
-  * @char **commit: Commit message
-  * @size_t *commtlen: Commit message size
-  * Return: void
-*/
+ * getInput - Get the commit message from the user
+ * @char **commit: Commit message
+ * @size_t *commtlen: Commit message size
+ * Return: void
+ */
 /**
  * getInput - Get the commit message from the user
  * @commit: Commit message
@@ -90,10 +90,10 @@ void execute(const char *command)
  */
 void getInput(char **commit, size_t *commtlen)
 {
-  printf("Enter the commit message (or leave empty for 'update'): ");
+  printf(MAGENTA"Enter the commit message (or leave empty for 'update'): "NC);
   if (getline(commit, commtlen, stdin) == -1)
   {
-    fprintf(stderr, "Error reading input\n");
+    fprintf(stderr, YELLOW"[!]Error reading input\n"NC);
     exit(EXIT_FAILURE);
   }
   (*commit)[strcspn(*commit, "\n")] = '\0';
@@ -108,11 +108,10 @@ void getInput(char **commit, size_t *commtlen)
 
 void gitcmt(const char *commit_message)
 {
-    char git_command[MAX_INPUT];
-    snprintf(git_command, sizeof(git_command), "git commit -m \"%s\"", commit_message);
+  char git_command[MAX_INPUT];
+  snprintf(git_command, sizeof(git_command), "git commit -m \"%s\"", commit_message);
 
-    execute("git add .");
+  execute("git add .");
 
-    execute(git_command);
+  execute(git_command);
 }
-

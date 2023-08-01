@@ -20,6 +20,7 @@ CFLAGS = -Wall -pedantic -Wextra -std=gnu89 -g
 #rules and recipes
 compile: ${PROG}
 ${PROG}: ${OBJ}
+	@rm -f {PROG}
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
 	@$(CC) $(CFLAGS) -o $@ $^
 	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}\n"
