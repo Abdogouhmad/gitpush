@@ -9,7 +9,7 @@ void checkgit(void)
 {
     if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") != 0)
     {
-        fprintf(stderr, "Git repository not detected. Use 'git init' to create a git repository\n");
+        fprintf(stderr, RED"[!]Git repository not detected. Use 'git init' to create a git repository\n"NC);
         exit(EXIT_FAILURE);
     }
 }
@@ -106,7 +106,7 @@ void getInput(char **commit, size_t *commtlen)
   }
 }
 
-void gitcmt(const char *commit_message, size_t lencmt)
+void gitcmt(const char *commit_message)
 {
     char git_command[MAX_INPUT];
     snprintf(git_command, sizeof(git_command), "git commit -m \"%s\"", commit_message);
