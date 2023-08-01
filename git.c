@@ -90,7 +90,7 @@ void execute(const char *command)
  */
 void getInput(char **commit, size_t *commtlen)
 {
-  printf(MAGENTA"Enter the commit message (or leave empty for 'update'): "NC);
+  printf(GREEN"[*]Enter the commit message (or leave empty for 'update'): "NC);
   if (getline(commit, commtlen, stdin) == -1)
   {
     fprintf(stderr, YELLOW"[!]Error reading input\n"NC);
@@ -109,9 +109,10 @@ void getInput(char **commit, size_t *commtlen)
 void gitcmt(const char *commit_message)
 {
   char git_command[MAX_INPUT];
-  snprintf(git_command, sizeof(git_command), "git commit -m \"%s\"", commit_message);
+  snprintf(git_command, sizeof(git_command), "%s \"%s\"",commands[1], commit_message);
 
-  execute("git add .");
+/*commands is a static global varaible check the git.h*/
+  execute(commands[0]);
 
   execute(git_command);
 }

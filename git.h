@@ -15,6 +15,15 @@
 #define BLUE "\033[0;34m"
 #define CYAN "\033[0;36m"
 #define MAGENTA "\033[0;35m"
+/*dump commands*/
+static const char *commands[] = {
+  "git add .",
+  "git commit -m",
+  "git push",
+  "git clean",
+  "git status --short",
+  "clean",
+};
 /*prototypes*/
 void commitAndPush(const char *commit_message);
 void checkgit(void);

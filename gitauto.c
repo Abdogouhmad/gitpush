@@ -3,7 +3,8 @@
  * main - main function
  * return: 0
  */
-int main() {
+int main()
+{
     char *commit_message = NULL;
     size_t size = 0;
 
@@ -15,9 +16,10 @@ int main() {
     /* Call the commiting function with the commit message*/
     gitcmt(commit_message);
     execute("git push");
+    execute("clean");
+    printf("Commit and push successful!\n");
     /* Cleanup*/
     free(commit_message);
 
     return 0;
 }
-
