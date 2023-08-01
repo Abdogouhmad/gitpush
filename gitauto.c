@@ -15,7 +15,7 @@ int main()
 
     /* Call the commiting function with the commit message*/
     gitcmt(commit_message);
-    execute(commands[3]);
+    execute(commands[2]);
     execute(commands[5]);
     printf(CYAN "Commit and push successful!\n" NC);
     printf(YELLOW "GOODBYE! KING\n" NC);
