@@ -64,8 +64,10 @@ void gitcmt(const char *commit_message)
 {
   char git_command[MAX_INPUT];
   snprintf(git_command, sizeof(git_command), "%s \"%s\"", commands[1], commit_message);
-
+  /*add all changes*/
   execute(commands[0]);
+  /*commite the changes*/
+  execute(git_command);
 }
 
 /**
@@ -75,7 +77,9 @@ void gitcmt(const char *commit_message)
  */
 void push(void)
 {
+  /*push the changes*/
   execute(commands[2]);
+  /*clean the prcess and print sweet msgs*/
   execute(commands[5]);
   printf(CYAN "Commit and push successful!\n" NC);
   printf(YELLOW "GOODBYE! KING\n" NC);
