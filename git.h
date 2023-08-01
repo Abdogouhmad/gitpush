@@ -22,7 +22,7 @@ static const char *commands[] = {
   "git push",
   "git clean",
   "git status --short",
-  "clean",
+  "clear",
 };
 /*prototypes*/
 void commitAndPush(const char *commit_message);

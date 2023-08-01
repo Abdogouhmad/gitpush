@@ -15,9 +15,10 @@ int main()
 
     /* Call the commiting function with the commit message*/
     gitcmt(commit_message);
-    execute("git push");
-    execute("clean");
-    printf("Commit and push successful!\n");
+    execute(commands[3]);
+    execute(commands[5]);
+    printf(CYAN "Commit and push successful!\n" NC);
+    printf(YELLOW "GOODBYE! KING\n" NC);
     /* Cleanup*/
     free(commit_message);
 
