@@ -12,13 +12,10 @@ int main()
     checkgit();
     /*Get the commit message from the user*/
     getInput(&commit_message, &size);
-
     /* Call the commiting function with the commit message*/
     gitcmt(commit_message);
-    execute(commands[2]);
-    execute(commands[5]);
-    printf(CYAN "Commit and push successful!\n" NC);
-    printf(YELLOW "GOODBYE! KING\n" NC);
+    /* Call the push function*/
+    push();
     /* Cleanup*/
     free(commit_message);
 

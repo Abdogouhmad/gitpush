@@ -7,58 +7,12 @@
  */
 void checkgit(void)
 {
-    if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") != 0)
-    {
-        fprintf(stderr, RED"[!] Git repository not detected. Use 'git init' to create a git repository\n" NC);
-        exit(EXIT_FAILURE);
-    }
-}
-
-/**
- * commitAndPush - Perform the Git commit and push operations
- * @const char *commit_message: Commit message
- * Returns: void
- * */
-void commitAndPush(const char *commit_message)
-{
-  char command[512];
-
-  /*Add all changes to the staging area (index)*/
-  system("git add -A");
-
-  /*Commit with the provided message*/
-  sprintf(command, "git commit -m \"%s\"", commit_message);
-  if (system(command) != 0)
+  if (system("git rev-parse --is-inside-work-tree > /dev/null 2>&1") != 0)
   {
-    fprintf(stderr, YELLOW"[?]Failed to commit changes\n"NC);
+    fprintf(stderr, RED "[!] Git repository not detected. Use 'git init' to create a git repository\n" NC);
     exit(EXIT_FAILURE);
   }
-
-  /*Push the changes to the remote*/
-  system("git push");
-
-  printf("Commit and push successful!\n");
 }
-/**
- * getCommitMessage - Get the commit message from the user
- * @char *message: Commit message
- * @size_t size: Commit message size
- * Returns: void
- * */
-
-void getCommitMessage(char *message, size_t size)
-{
-  printf("Enter the commit message (or leave empty for 'update'): ");
-  if (getline(&message, &size, stdin) == -1)
-  {
-    fprintf(stderr, "Error reading input\n");
-    exit(EXIT_FAILURE);
-  }
-
-  /*Remove trailing newline character*/
-  message[strcspn(message, "\n")] = '\0';
-}
-/*--------------------------------------------------------------------------------------*/
 /**
  * execute - Execute a command
  * @const char *command: Command to execute
@@ -69,7 +23,7 @@ void execute(const char *command)
   int output = system(command);
   if (output != 0)
   {
-    fprintf(stderr, "Failed to execute '%s'\n", command);
+    fprintf(stderr, RED "[?]Failed to execute '%s'\n" NC, command);
     exit(EXIT_FAILURE);
   }
   if (command[0] != '\0' && command == NULL)
@@ -78,22 +32,16 @@ void execute(const char *command)
 
 /**
  * getInput - Get the commit message from the user
- * @char **commit: Commit message
- * @size_t *commtlen: Commit message size
- * Return: void
- */
-/**
- * getInput - Get the commit message from the user
  * @commit: Commit message
  * @commtlen: Commit message size
  * Return: void
  */
 void getInput(char **commit, size_t *commtlen)
 {
-  printf(GREEN"[*]Enter the commit message (or leave empty for 'update'): "NC);
+  printf(GREEN "[*]Enter the commit message (or leave empty for 'update'): " NC);
   if (getline(commit, commtlen, stdin) == -1)
   {
-    fprintf(stderr, YELLOW"[!]Error reading input\n"NC);
+    fprintf(stderr, YELLOW "[!]Error reading input\n" NC);
     exit(EXIT_FAILURE);
   }
   (*commit)[strcspn(*commit, "\n")] = '\0';
@@ -105,14 +53,39 @@ void getInput(char **commit, size_t *commtlen)
     *commtlen = strlen(*commit);
   }
 }
-
+/**
+ * gitcmt - Commit the changes
+ * @commit_message: Commit message
+ * Return: void
+ */
 void gitcmt(const char *commit_message)
 {
   char git_command[MAX_INPUT];
-  snprintf(git_command, sizeof(git_command), "%s \"%s\"",commands[1], commit_message);
+  snprintf(git_command, sizeof(git_command), "%s \"%s\"", commands[1], commit_message);
 
-/*commands is a static global varaible check the git.h*/
+  /*commands is a static global varaible check the git.h*/
   execute(commands[0]);
-
+  if (system(git_command) != 0)
+  {
+    fprintf(stderr, RED "[!]Failed to commit changes\n" NC);
+    exit(EXIT_FAILURE);
+  }
   execute(git_command);
+}
+/**
+ * push - Push the changes to the remote repository
+ * @void
+ * Return: void
+ */
+void push(void)
+{
+  execute(commands[2]);
+  if (system(commands[2]) != 0)
+  {
+    fprintf(stderr, RED "[!]Failed to push changes\n" NC);
+    exit(EXIT_FAILURE);
+  }
+  execute(commands[5]);
+  printf(CYAN "Commit and push successful!\n" NC);
+  printf(YELLOW "GOODBYE! KING\n" NC);
 }

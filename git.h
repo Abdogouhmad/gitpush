@@ -17,7 +17,7 @@
 #define MAGENTA "\033[0;35m"
 /*dump commands*/
 static const char *commands[] = {
-  "git add .",
+  "git add -A",
   "git commit -m",
   "git push",
   "git clean",
@@ -32,4 +32,5 @@ void getCommitMessage(char *message, size_t size);
 void getInput(char **commit, size_t *commtlen);
 void gitcmt(const char *commit_message);
 void execute(const char *command);
+void push(void);
 #endif
