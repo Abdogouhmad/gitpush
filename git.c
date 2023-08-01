@@ -13,6 +13,7 @@ void checkgit(void)
     exit(EXIT_FAILURE);
   }
 }
+
 /**
  * execute - Execute a command
  * @const char *command: Command to execute
@@ -53,6 +54,7 @@ void getInput(char **commit, size_t *commtlen)
     *commtlen = strlen(*commit);
   }
 }
+
 /**
  * gitcmt - Commit the changes
  * @commit_message: Commit message
@@ -63,15 +65,9 @@ void gitcmt(const char *commit_message)
   char git_command[MAX_INPUT];
   snprintf(git_command, sizeof(git_command), "%s \"%s\"", commands[1], commit_message);
 
-  /*commands is a static global varaible check the git.h*/
   execute(commands[0]);
-  if (system(git_command) != 0)
-  {
-    fprintf(stderr, RED "[!]Failed to commit changes\n" NC);
-    exit(EXIT_FAILURE);
-  }
-  execute(git_command);
 }
+
 /**
  * push - Push the changes to the remote repository
  * @void
@@ -80,11 +76,6 @@ void gitcmt(const char *commit_message)
 void push(void)
 {
   execute(commands[2]);
-  if (system(commands[2]) != 0)
-  {
-    fprintf(stderr, RED "[!]Failed to push changes\n" NC);
-    exit(EXIT_FAILURE);
-  }
   execute(commands[5]);
   printf(CYAN "Commit and push successful!\n" NC);
   printf(YELLOW "GOODBYE! KING\n" NC);
