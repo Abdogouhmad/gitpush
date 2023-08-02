@@ -6,7 +6,7 @@
 int main()
 {
     char *commit_message = NULL;
-    char yn; const char *file = NULL;
+    char *yn = NULL; const char *file = NULL;
     size_t size = 0;
 
     /*Check if the current directory is a git repository*/
@@ -24,6 +24,6 @@ int main()
 
     /* Cleanup*/
     free(commit_message);
-
+    free (yn);
     return 0;
 }
