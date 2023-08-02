@@ -33,5 +33,5 @@ void getInput(char **commit, size_t *commtlen);
 void gitcmt(const char *commit_message);
 void execute(const char *command);
 void push(void);
-void gitaddfile(const char *file);
+void gitaddfile(const char *file, char *yn);
 #endif

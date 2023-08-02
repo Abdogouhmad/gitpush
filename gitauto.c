@@ -6,21 +6,13 @@
 int main()
 {
     char *commit_message = NULL;
-    char *yn = NULL;
+    char *yn = NULL; const char *file = NULL;
     size_t size = 0;
 
     /*Check if the current directory is a git repository*/
-    printf(CYAN "[?]do you wanna add specific file[y/n]: " NC);
-    if (scanf("%s", yn) == 'y')
-    {
-        printf(GREEN "[*]Enter the file name: ");
-        /*scanf("%s", file);
-        gitaddfile(file);*/
-        exit(EXIT_SUCCESS);
-    }
     checkgit();
     /*Add specific file to the staging area*/
-
+    gitaddfile(file, yn);
     /*Get the commit message from the user*/
 
     getInput(&commit_message, &size);
