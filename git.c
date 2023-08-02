@@ -94,7 +94,11 @@ void gitaddfile(const char *file, char *yn)
     exit(EXIT_FAILURE);
   }
   printf(GREEN "[*]Do you want to add a scpefici file to repo? [y/n]: " NC);
-  scanf("%c", yn);
+  if (scanf("%1c", yn) == EOF)
+    {
+      fprintf(stderr, YELLOW "[!]Error reading input\n" NC);
+      exit(EXIT_FAILURE);
+    }
   if (yn[0] == 'y' || yn[0] == 'Y')
   {
     printf(GREEN "[*]Enter the file name: " NC);
