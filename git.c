@@ -84,3 +84,11 @@ void push(void)
   printf(CYAN "Commit and push successful!\n" NC);
   printf(YELLOW "GOODBYE! KING\n" NC);
 }
+
+void gitaddfile(const char *file)
+{
+  
+  char git_command[MAX_INPUT];
+  snprintf(git_command, sizeof(git_command), "%s %s", commands[3], commands[4]);
+  execute(git_command);
+}

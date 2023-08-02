@@ -37,6 +37,7 @@ make build
 3. copy the executable to where you want
 
 ##### with install:
+
 ```bash
 install /path/to/gitauto /usr/bin # gitauto or push.sh. /usr/bin or /usr/local/bin
 ```
@@ -47,7 +48,7 @@ install /path/to/gitauto /usr/bin # gitauto or push.sh. /usr/bin or /usr/local/b
 cp /path/to/gitauto /usr/bin # gitauto or push.sh. /usr/bin or /usr/local/bin
 ```
 
-``` 
+```
 
 4. then run it using the simple syntaxt that is known:
 
