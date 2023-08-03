@@ -98,6 +98,7 @@ void gitaddfile(__attribute__((unused)) const char *file, char **yn) {
         exit(EXIT_FAILURE);
     }
 
+    scanf("%1c[^\n]", *yn);
     if ((*yn)[0] == 'y' || (*yn)[0] == 'Y') {
         printf(GREEN "[*]Enter the file name: " NC);
     }
