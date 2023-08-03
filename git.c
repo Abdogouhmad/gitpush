@@ -93,11 +93,6 @@ void gitaddfile(__attribute__((unused)) const char *file, char **yn) {
     }
 
     printf(GREEN "[*]Do you want to add a specific file to repo? [y/n]: " NC);
-    if (scanf(" %c", *yn) == EOF) {
-        fprintf(stderr, YELLOW "[!]Error reading input\n" NC);
-        exit(EXIT_FAILURE);
-    }
-
     scanf("%1c[^\n]", *yn);
     if ((*yn)[0] == 'y' || (*yn)[0] == 'Y') {
         printf(GREEN "[*]Enter the file name: " NC);
