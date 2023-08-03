@@ -85,18 +85,16 @@ void push(void)
   printf(YELLOW "GOODBYE! KING\n" NC);
 }
 
-void gitaddfile(__attribute__((unused)) const char *file, char **yn) {
-    *yn = (char *)malloc(sizeof(char) * 2);
-    if (!(*yn)) {
-        fprintf(stderr, RED "[!]Error allocating memory\n" NC);
-        exit(EXIT_FAILURE);
-    }
+void gitaddfile(__attribute__((unused)) const char *file_name, int *yn)
+{
 
-    printf(GREEN "[*]Do you want to add a specific file to repo? [y/n]: " NC);
-    scanf(" %c", *yn);
-    if ((*yn)[0] == 'y' || (*yn)[0] == 'Y')
-    {
-        printf(GREEN "[*]Enter the file name: " NC);
-    }
-    return;
+  printf(GREEN "[*]Do you want to add a specific file to repo? [y/n]: " NC);
+  while ((yn = getchar()) != '\n' && yn != EOF);
+    ;
+  yn = getchar();
+  if (yn == 'y' || yn == 'Y')
+  {
+    printf(GREEN "[*]Enter the file name: " NC);
+  }
+  return;
 }
