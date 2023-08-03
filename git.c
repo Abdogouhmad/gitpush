@@ -87,14 +87,12 @@ void push(void)
 
 void gitaddfile(__attribute__((unused)) const char *file_name, int *yn)
 {
-
   printf(GREEN "[*]Do you want to add a specific file to repo? [y/n]: " NC);
-  while ((yn = getchar()) != '\n' && yn != EOF);
-    ;
-  yn = getchar();
-  if (yn == 'y' || yn == 'Y')
+  *yn = getchar();
+  while (getchar() != '\n');
+
+  if (*yn == 'y' || *yn == 'Y')
   {
     printf(GREEN "[*]Enter the file name: " NC);
   }
-  return;
 }
