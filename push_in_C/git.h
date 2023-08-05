@@ -19,19 +19,15 @@
 static const char *commands[] = {
   "git add -A",
   "git commit -m",
-  "git push",
+  "git push origin main",
   "git clean",
   "git status --short",
   "clear",
 };
 /*prototypes*/
-void commitAndPush(const char *commit_message);
 void checkgit(void);
-void getCommitMessage(char *message, size_t size);
-/*WORKING ON*/
 void getInput(char **commit, size_t *commtlen);
 void gitcmt(const char *commit_message);
 void execute(const char *command);
 void push(void);
-void gitaddfile(const char *file, int *yn);
 #endif

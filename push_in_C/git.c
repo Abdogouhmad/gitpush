@@ -84,18 +84,3 @@ void push(void)
   printf(CYAN "Commit and push successful!\n" NC);
   printf(YELLOW "GOODBYE! KING\n" NC);
 }
-/* doesn't work yet */
-/*void gitaddfile(__attribute__((unused)) const char *file_name, int *yn)
-{
-  printf(GREEN "[*]Do you want to add a specific file to repo? [y/n]: " NC);
-  *yn = getchar();
-  while (getchar() != '\n');
-
-  if (*yn == 'y' || *yn == 'Y')
-  {
-    execute(commands[4]);
-    printf(CYAN "[*]Enter the file name: \n" NC);
-    exit(EXIT_SUCCESS);
-  }
-  return;
-}*/

@@ -6,7 +6,7 @@ MAGENTA=\033[0;35m
 YELLOW=\033[0;33m
 
 #PROGRAM NAME
-PROG = gitauto
+PROG = cpush
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
 FILES = $(OBJ)
@@ -22,7 +22,7 @@ compile: ${PROG}
 ${PROG}: ${OBJ}
 	@rm -f {PROG}
 	@printf "$(YELLOW)In porcess ... to compile the $(GREEN)$(PROG)${NC}\n"
-	@$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 	@printf "$(YELLOW)$(PROG)$(GREEN) compiled successfully${NC}\n"
 
 %.o: %.c
