@@ -17,6 +17,7 @@ print_color(){
   local NOC=$NC
   printf "$color""$text""$NOC"
 }
+
 # end func
 git status --short
 #condition goes here
