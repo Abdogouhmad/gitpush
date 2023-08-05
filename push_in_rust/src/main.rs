@@ -1,7 +1,7 @@
-mod guess;
+mod git;
 
 fn main()
 {
     println!("calling function");
-    guess::calculator();
+    git::calculator();
 }
