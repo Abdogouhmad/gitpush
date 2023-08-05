@@ -26,23 +26,24 @@ read -r -n1 yes  #specail msg for specail codition/situation
 echo
 while [ "$yes" == 'y' ]
         do
-            print_color "$RED" "[!]here are the changes you made: \n"
+            print_color "$PURPLE" "[!]here are the changes you made: \n"
             git status --short
-            print_color "$GREEN""[*]add the file name or exit to add everything: \n"
-            read -r filename #the file name observed at the beginning!
-        if [ "$filename" == 'exit' ]
-            then
-                exit
-        elif [ "$filename" != 'exit' ]; then
+            print_color "$GREEN""[*]add the file name to add it or ctrl + d to exit: \n"
+            read -r -e filename #the file name observed at the beginning!
+        if [ -z "$filename" ]
+        then
+            print_color "$RED" "[!]you gave empty input try again\n"
+        elif [ -n "$filename" ]; then
             git add "$filename"
             print_color "$PURPLE" "[?]give the commit name: \n"
-            read -r cmt
+            read -r -e cmt
             git commit -m "$cmt"
             git push
-        fi
             clear
             print_color "$CYAN" "[<3]Happy coding KING\n"
             exit
+        fi
+        break
 done
 
 # second choice code
