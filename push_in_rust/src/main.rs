@@ -3,6 +3,6 @@ use git::git_check;
 
 fn main()
 {
-    // println!("calling function");
+    // check if the folder connected to git!
    git_check();
 }

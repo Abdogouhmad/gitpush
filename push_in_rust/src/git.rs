@@ -33,6 +33,6 @@ pub fn git_check() {
     if output.status.success() {
         cprintln!("<green><bold>[{}]inside git repo", done_sc);
     } else {
-        cprintln!("<red>[{}]not inside git repo</red>", warning);
+        cprintln!("<red>[{}]not inside git repo try to use git init to start</red>", warning);
     }
 }
