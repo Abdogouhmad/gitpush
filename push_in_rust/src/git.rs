@@ -17,7 +17,7 @@ static CMD: [&str; 7] = [
 
 pub fn git_check() {
   let done_sc = emojis::get("✅").unwrap();
-  let warning = emojis::get("⚠️").unwrap();
+  let warning = emojis::get("❎").unwrap();
     let output = if cfg!(target_os = "windows") {
         process::Command::new("cmd")
             .args(&["/C", CMD[0]])
