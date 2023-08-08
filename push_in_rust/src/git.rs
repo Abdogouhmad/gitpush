@@ -36,3 +36,24 @@ pub fn git_check() {
         cprintln!("<red>[{}]not inside git repo try to use git init to start</red>", warning);
     }
 }
+
+pub fn git_add() {
+    let done_sc = emojis::get("😄").unwrap();
+    let warning = emojis::get("❎").unwrap();
+    let output = if cfg!(target_os = "windows") {
+        process::Command::new("cmd")
+            .args(&["/C", CMD[1]])
+            .output()
+            .expect("failed to execute process")
+    } else {
+        process::Command::new("sh")
+            .args(&["-c", CMD[1]])
+            .output()
+            .expect("failed to execute process")
+    };
+    if output.status.success() {
+        cprintln!("<green><bold>[{}]added all changes", done_sc);
+    } else {
+        cprintln!("<red>[{}]failed to add changes</red>", warning);
+    }
+}
