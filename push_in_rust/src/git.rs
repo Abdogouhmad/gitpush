@@ -37,6 +37,11 @@ pub fn git_check() {
     }
 }
 
+/**
+ * *git_add - add all changes to git
+ * @arguements: none
+ * @return: none
+ */
 pub fn git_add() {
     let done_sc = emojis::get("😄").unwrap();
     let warning = emojis::get("❎").unwrap();
@@ -57,3 +62,9 @@ pub fn git_add() {
         cprintln!("<red>[{}]failed to add changes</red>", warning);
     }
 }
+/**
+ * TODO: add commit message
+ * ! it should allocate memory for the commit message
+ * ? maybe use a vector to store the commit message
+ * @param: string varaible
+ */

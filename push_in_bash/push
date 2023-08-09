@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# shellcheck disable=SC2317
 #coloring
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -9,7 +10,12 @@ CYAN='\033[0;36m'
 NC='\033[0m' # No
 #end coloring
 
-#PRINTING WITH COLORS
+#function section
+
+# pinrt_color - a function to print color
+    # @param $color: the color
+    # @param $text: the text
+    # @return: void
 
 print_color(){
   local color=$1
@@ -18,14 +24,20 @@ print_color(){
   printf "$color""$text""$NOC"
 }
 
-# end func
-git status --short
-#condition goes here
+# unique_file - a function to add a unique file
+    # @param $filename: the file name
+    # @param $cmt: the commit name
+    # @param $yes: the answer for the question in the beginning
+    # @return: void
 
-print_color "$YELLOW" "[?] Do you wanna add special file [y/n]: "
-read -r -n1 yes  #specail msg for specail codition/situation
-echo
-while [ "$yes" == 'y' ]
+unique_file(){
+    # check if the user is in git repo
+    check_git
+    git status --short
+    print_color "$YELLOW" "[?] Do you wanna add special file [y/n]: "
+    read -r -n1 yes  #specail msg for specail codition/situation
+    echo
+    while [ "$yes" == 'y' ]
         do
             print_color "$PURPLE" "[!]here are the changes you made: \n"
             git status --short
@@ -45,51 +57,62 @@ while [ "$yes" == 'y' ]
             exit
         fi
         break
-done
+    done
+}
+# check_git - a function to check if the user is in git repo
+    # @return: void
+check_git(){
+    if [ ! -d .git ]; then
+        print_color "$RED" "[!]you are not in git repo\n"
+        exit 1
+    fi
+}
 
-# second choice code
-git add .
-add_output=$? # Adding output for condition
-if [ $add_output -ne 0 ]; then
-    print_color "$RED" "[!]repo not detected use git init to create a repo \n"
-    exit 1
-else
+# push_and_check - function that check if you push seccufly or not
+    # @return: 1 if failed or 0 if passed
+push_and_check(){
+    git push
+    save_output=$? #storing the ouput for the condition
+    if [ $save_output != 0 ]; then
+        print_color "$RED""[!]there is issue with push i will push again hold-on!\n"
+        return 1
+        git push
+    elif [ $save_output == 0 ]; then
+        print_color "$GREEN" "[:)] push successfully \n"
+        return 0
+    else
+        git push
+    fi
+}
+
+# commiting - commiting the changes
+    # @Cname: the commit name
+# return: commit name
+commiting(){
+    # adding all the changes
     git add .
+    #commiting the changes
+    print_color "$CYAN" "[?] provide commit or hit enter if you like "Update!" as your commit: \n"
+    read -r -e  Cname #git the commit name for user
+    if [ -z "$Cname" ]; then
+        git commit -m "Update!"
+    else
+        git commit -m "$Cname"
 fi
-#commiting the changes
-print_color "$CYAN" "[?]what is your commit name in case you gave empty input your cmit is: new upload: \n"
-read -r -e  Cname #git the commit name for user
-if [ -z "$Cname" ]; then
-    git commit -m "new upload!"
-else
-    git commit -m "$Cname"
-fi
+}
+# end func
 
-#push the changes
 
-git push
-save_output=$? #storing the ouput for the condition
-if [ $save_output != 0 ]; then
-    print_color "$RED""[!]there is issue with push i will push again hold!\n"
-    git push
-elif [ $save_output == 0 ]; then
-    clear
-else
-    git push
-fi
+# the main
 
-#checking the changes
+# add special file
+unique_file
+# general adding the changes and commiting
+commiting
+#push the changes and check
+push_and_check
 
-git status
-if [ "$?" -ne 0 ] ; then
-     print_color "$RED""[!]Hmmmm? something odd here try to figure it out!\n"
-    exit 1
-else
-  print_color "$CYAN" "pushed successfully \n"
-fi
-
-#leaving the whole shit
-
+#ending program bye :)
 echo clearing after 3s
 sleep 3
 clear
