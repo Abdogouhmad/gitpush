@@ -1,5 +1,5 @@
 mod git;
-use git::{git_check, git_add, committed, git_push, clear_term};
+use git::{git_check, git_add, git_push, clear_term, git_input_cmt};
 fn main()
 {
     let msg_commit = String::new();
@@ -9,8 +9,10 @@ fn main()
     git_check();
 // add the changes
     git_add();
+// git message commit
+    git_input_cmt(cmd.clone());
 // commit the changes
-    committed(cmd);
+    //committed(cmd);
 // push the changes
     git_push();
 // clear term

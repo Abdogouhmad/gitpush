@@ -2,9 +2,9 @@
 #[allow(unused_imports)]
 #[allow(unused_variables)]
 use std::process;
-use color_print::cprintln;
+use color_print::{cprintln, cprint};
 // use colored::*;
-// use std::io;
+use std::io::{self, Write};
 static CMD: [&str; 6] = [
     "git rev-parse --is-inside-work-tree > /dev/null 2>&1",
     "git add -A",
@@ -96,11 +96,19 @@ pub fn git_add() {
  * @return: none
  */
 
-pub fn git_input_cmt(msg: String) {
-    println!("{}", msg);
+pub fn git_input_cmt(_msg: String) {
+    cprint!("<yellow><bold>Enter commit message(or leave it empty for 'update' as commit): ");
+    io::stdout().flush().expect("Failed to flush stdout");
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
+    let mut msg = input.trim().to_string();
+    if msg.is_empty() {
+        msg = "update".to_string();
+    }
+    committed(msg);
 }
-
-
 
 
 
@@ -109,28 +117,44 @@ pub fn git_input_cmt(msg: String) {
  * @arguements: msg: String
  * @return: none
 */
-
+/**
+ * *git_commit - commit all changes to git
+ * @arguements: msg: String
+ * @return: none
+*/
+/**
+ * *git_commit - commit all changes to git
+ * @arguements: msg: String
+ * @return: none
+*/
 pub fn committed(msg: String) {
     let done_sc = emojis::get("😄").unwrap();
     let warning = emojis::get("❎").unwrap();
-    let output = if cfg!(target_os = "windows") {
-        process::Command::new("cmd")
-            .args(&["/C", CMD[2], &msg])
-            .output()
-            .expect("failed to execute process")
-    } else {
-        process::Command::new("sh")
-            .args(&["-c", CMD[2], &msg])
-            .output()
-            .expect("failed to execute process")
-    };
+    
+    let mut cmd = process::Command::new(if cfg!(target_os = "windows") { "cmd" } else { "sh" });
+    cmd.arg("-c").arg(format!("{} '{}'", CMD[2], msg));
+
+    let output = cmd
+        .stderr(std::process::Stdio::piped()) // Capture stderr
+        .output()
+        .expect("failed to execute process");
+
     if output.status.success() {
         cprintln!("<green><bold>[{}]committed changes", done_sc);
     } else {
         cprintln!("<red><bold>[{}]failed to commit changes", warning);
-        println!("{:?}", msg);
+        
+        if let Err(utf8_err) = String::from_utf8(output.stderr.clone()) {
+            cprintln!("<red><bold>Error decoding UTF-8 output: {}", utf8_err);
+        } else if let Ok(stderr) = String::from_utf8(output.stderr) {
+            if !stderr.is_empty() {
+                cprintln!("<red><bold>Git Error Message:\n{}", stderr);
+            }
+        }
     }
 }
+
+
 
 /**
  * *git_push - push all changes to git
