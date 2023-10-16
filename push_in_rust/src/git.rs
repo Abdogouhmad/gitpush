@@ -184,8 +184,10 @@ pub fn git_push() {
             
             let push_cmd = if cfg!(target_os = "windows") {
                 format!("{} {}", CMD[3], branch_name)
-            } else {
+            } else if branch_name == "main" {
                 format!("{} {}", CMD[3], branch_name)
+            } else {
+                format!("{} {}:{}", CMD[3], branch_name, branch_name)
             };
             println!("{} {}", CMD[3], branch_name);
             let push_output = if cfg!(target_os = "windows") {
