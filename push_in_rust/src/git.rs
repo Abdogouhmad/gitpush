@@ -5,13 +5,14 @@ use std::process;
 use color_print::{cprintln, cprint};
 // use colored::*;
 use std::io::{self, Write};
-static CMD: [&str; 6] = [
+static CMD: [&str; 7] = [
     "git rev-parse --is-inside-work-tree > /dev/null 2>&1",
     "git add -A",
     "git commit -m",
     "git push origin main",
     "git status --short",
     "clear",
+    "git rev-parse --abbrev-ref HEAD"
 ];
 
 
