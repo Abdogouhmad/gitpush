@@ -9,7 +9,7 @@ static CMD: [&str; 7] = [
     "git rev-parse --is-inside-work-tree > /dev/null 2>&1",
     "git add -A",
     "git commit -m",
-    "git push origin ",
+    "git push origin",
     "git status --short",
     "clear",
     "git rev-parse --abbrev-ref HEAD"
@@ -178,18 +178,19 @@ pub fn git_push() {
             .output()
             .expect("failed to execute process")
     };
+
+    // * get the output of the branch and work on it
     if branch.status.success() {
         if let Ok(branch_name) = String::from_utf8(branch.stdout) {
             let branch_name = branch_name.trim();
             
             let push_cmd = if cfg!(target_os = "windows") {
                 format!("{} {}", CMD[3], branch_name)
-            } else if branch_name == "main" {
-                format!("{} {}", CMD[3], branch_name)
             } else {
                 format!("{} {}:{}", CMD[3], branch_name, branch_name)
             };
-            println!("{} {}", CMD[3], branch_name);
+
+            println!("{}", push_cmd);
             let push_output = if cfg!(target_os = "windows") {
                 process::Command::new("cmd")
                     .args(&["/C", &push_cmd])
