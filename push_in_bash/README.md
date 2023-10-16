@@ -1,6 +1,16 @@
 # push in Bash
 
 this is a bash script that automaticly push the code into your github
+## Installation
+
+use `makefile` to install this script into `/usr/bin/`
+```bash
+make install
+```
+in case you want to uninstall the script use `make uninstall`
+```bash
+make uninstall
+```
 
 ## Usage
 
