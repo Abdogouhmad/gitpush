@@ -183,14 +183,15 @@ pub fn git_push() {
     if branch.status.success() {
         if let Ok(branch_name) = String::from_utf8(branch.stdout) {
             let branch_name = branch_name.trim();
-            
+
+            // * set the format of push
             let push_cmd = if cfg!(target_os = "windows") {
                 format!("{} {}", CMD[3], branch_name)
             } else {
                 format!("{} {}:{}", CMD[3], branch_name, branch_name)
             };
 
-            println!("{}", push_cmd);
+            // * push the changes
             let push_output = if cfg!(target_os = "windows") {
                 process::Command::new("cmd")
                     .args(&["/C", &push_cmd])
@@ -203,6 +204,7 @@ pub fn git_push() {
                     .expect("failed to execute process")
             };
 
+            // ! check the process if it is executed well
             if push_output.status.success() {
                 cprintln!("<green><bold>[{}]pushed changes to branch: {}", done_sc, branch_name);
             } else {
