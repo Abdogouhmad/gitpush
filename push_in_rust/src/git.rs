@@ -165,38 +165,49 @@ pub fn committed(msg: String) {
 pub fn git_push() {
     let done_sc = emojis::get("😄").unwrap();
     let warning = emojis::get("❎").unwrap();
-    let output = if cfg!(target_os = "windows") {
+
+    let branch = if cfg!(target_os = "windows") {
         process::Command::new("cmd")
-            .args(&["/C", CMD[3]])
+            .args(&["/C", CMD[6]])
             .output()
             .expect("failed to execute process")
-    } else {
+    }
+    else {
         process::Command::new("sh")
-            .args(&["-c", CMD[3]])
+            .args(&["-c", CMD[6]])
             .output()
             .expect("failed to execute process")
     };
-    if output.status.success() {
-        cprintln!("<green><bold>[{}]pushed changes", done_sc);
-    } else {
-        cprintln!("<red><bold>[{}]failed to push changes", warning);
-        // ! if push failed try to push again
-        let push_fail = if cfg!(target_os = "windows") {
-            process::Command::new("cmd")
-                .args(&["/C", CMD[3]])
-                .output()
-                .expect("failed to execute process")
-        } else {
-            process::Command::new("sh")
-                .args(&["-c", CMD[3]])
-                .output()
-                .expect("failed to execute process")
-        };
-        if push_fail.status.success() {
-            cprintln!("<green><bold>[{}]pushed changes are fixed", done_sc);
-        } else {
-            cprintln!("<red><bold>[{}]something went wrong check your git!", warning);
+    if branch.status.success() {
+        if let Ok(branch_name) = String::from_utf8(branch.stdout) {
+            let branch_name = branch_name.trim();
+            
+            let push_cmd = if cfg!(target_os = "windows") {
+                format!("{} {}", CMD[3], branch_name)
+            } else {
+                format!("{} {}:{}", CMD[3], branch_name, branch_name)
+            };
+
+            let push_output = if cfg!(target_os = "windows") {
+                process::Command::new("cmd")
+                    .args(&["/C", &push_cmd])
+                    .output()
+                    .expect("failed to execute process")
+            } else {
+                process::Command::new("sh")
+                    .args(&["-c", &push_cmd])
+                    .output()
+                    .expect("failed to execute process")
+            };
+
+            if push_output.status.success() {
+                cprintln!("<green><bold>[{}]pushed changes to branch: {}", done_sc, branch_name);
+            } else {
+                cprintln!("<red><bold>[{}]failed to push changes to branch: {} [{}]", warning, branch_name, push_output.status);
+            }
         }
+    } else {
+        cprintln!("<red><bold>[{}]failed to get current branch", warning);
     }
 }
 
