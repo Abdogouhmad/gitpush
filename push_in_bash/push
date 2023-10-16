@@ -38,27 +38,27 @@ unique_file(){
     cprint "$YELLOW" "[?] Do you wanna add special file [y/n]: "
     read -r -n1 yes  #specail msg for specail codition/situation
     echo
-    while [ "$yes" == 'y' ]
-        do
-            cprint "$PURPLE" "[!]here are the changes you made: \n"
-            git status --short
-            cprint "$GREEN""[*]add the file name to add it or ctrl + d to exit: \n"
-            read -r -e filename #the file name observed at the beginning!
-        if [ -z "$filename" ]
-        then
-            cprint "$RED" "[!]you gave empty input try again\n"
-        elif [ -n "$filename" ]; then
-            git add "$filename"
-            cprint "$PURPLE" "[?]give the commit name: \n"
-            read -r -e cmt
-            git commit -m "$cmt"
-            git push
-            clear
-            cprint "$CYAN" "[<3]Happy coding KING\n"
-            exit
-        fi
-        break
-    done
+    if  [ "$yes" == 'y' ]
+    then
+        cprint "$PURPLE" "[!] here are the changes you made: \n"
+        git status --short
+        cprint "$GREEN""[*] add the file names to add them or ctrl + d to exit: \n"
+        read -rea files
+        for file in "${files[@]}"; do
+            if [ -z "$file" ]; then
+                cprint "$RED" "[!] you gave empty input try again\n"
+            else
+                git add "$file"
+            fi
+        done
+        cprint "$PURPLE" "[?] give the commit name: \n"
+        read -re cmt
+        git commit -m "$cmt"
+        git push
+        clear
+        cprint "$CYAN" "[<3]Happy coding KING\n"
+        exit
+    fi
 }
 # check_git - a function to check if the user is in git repo
     # @return: void
@@ -80,11 +80,11 @@ push_and_check(){
 
     save_output=$? #storing the ouput for the condition
     if [ $save_output != 0 ]; then
-        print_color "$RED""[!]there is issue with push i will push again hold-on!\n"
+        cprint "$RED""[!]there is issue with push i will push again hold-on!\n"
         git push origin "$branch" # try pushing again
         return 1
     elif [ $save_output == 0 ]; then
-        print_color "$GREEN" "[:)] push successfully \n"
+        cprint "$GREEN" "[:)] push successfully \n"
         return 0
     else
         git push origin "$branch"
