@@ -9,7 +9,7 @@ static CMD: [&str; 7] = [
     "git rev-parse --is-inside-work-tree > /dev/null 2>&1",
     "git add -A",
     "git commit -m",
-    "git push origin main",
+    "git push origin ",
     "git status --short",
     "clear",
     "git rev-parse --abbrev-ref HEAD"
