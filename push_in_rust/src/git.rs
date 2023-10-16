@@ -187,7 +187,7 @@ pub fn git_push() {
             } else {
                 format!("{} {}:{}", CMD[3], branch_name, branch_name)
             };
-
+            println!("{} {}", CMD[3], branch_name);
             let push_output = if cfg!(target_os = "windows") {
                 process::Command::new("cmd")
                     .args(&["/C", &push_cmd])
