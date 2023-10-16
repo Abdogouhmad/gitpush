@@ -18,7 +18,7 @@ NC='\033[0m' # No
     # @param $text: the text
     # @return: void
 
-print_color(){
+cprint(){
   local color=$1
   local text=$2
   local NOC=$NC
@@ -35,26 +35,26 @@ unique_file(){
     # check if the user is in git repo
     check_git
     git status --short
-    print_color "$YELLOW" "[?] Do you wanna add special file [y/n]: "
+    cprint "$YELLOW" "[?] Do you wanna add special file [y/n]: "
     read -r -n1 yes  #specail msg for specail codition/situation
     echo
     while [ "$yes" == 'y' ]
         do
-            print_color "$PURPLE" "[!]here are the changes you made: \n"
+            cprint "$PURPLE" "[!]here are the changes you made: \n"
             git status --short
-            print_color "$GREEN""[*]add the file name to add it or ctrl + d to exit: \n"
+            cprint "$GREEN""[*]add the file name to add it or ctrl + d to exit: \n"
             read -r -e filename #the file name observed at the beginning!
         if [ -z "$filename" ]
         then
-            print_color "$RED" "[!]you gave empty input try again\n"
+            cprint "$RED" "[!]you gave empty input try again\n"
         elif [ -n "$filename" ]; then
             git add "$filename"
-            print_color "$PURPLE" "[?]give the commit name: \n"
+            cprint "$PURPLE" "[?]give the commit name: \n"
             read -r -e cmt
             git commit -m "$cmt"
             git push
             clear
-            print_color "$CYAN" "[<3]Happy coding KING\n"
+            cprint "$CYAN" "[<3]Happy coding KING\n"
             exit
         fi
         break
@@ -65,7 +65,7 @@ unique_file(){
 check_git() {
     output=$(git rev-parse --is-inside-work-tree 2>/dev/null)
     if [ "$output" != "true" ]; then
-        print_color "$RED" "[!] You are not in a Git repository\n"
+        cprint "$RED" "[!] You are not in a Git repository\n"
         exit 1
     fi
 }
@@ -74,17 +74,20 @@ check_git() {
 # push_and_check - function that check if you push seccufly or not
     # @return: 1 if failed or 0 if passed
 push_and_check(){
-    git push
+    branch=$(git rev-parse --abbrev-ref HEAD) # get the current branch name
+
+    git push origin "$branch"
+
     save_output=$? #storing the ouput for the condition
     if [ $save_output != 0 ]; then
         print_color "$RED""[!]there is issue with push i will push again hold-on!\n"
+        git push origin "$branch" # try pushing again
         return 1
-        git push
     elif [ $save_output == 0 ]; then
         print_color "$GREEN" "[:)] push successfully \n"
         return 0
     else
-        git push
+        git push origin "$branch"
     fi
 }
 
@@ -95,7 +98,7 @@ commiting(){
     # adding all the changes
     git add .
     #commiting the changes
-    print_color "$CYAN" "[?] provide commit or hit enter if you like "Update!" as your commit: \n"
+    cprint "$CYAN" "[?] provide commit or hit enter if you like "Update!" as your commit: \n"
     read -r -e  Cname #git the commit name for user
     if [ -z "$Cname" ]; then
         git commit -m "Update!"
@@ -119,4 +122,4 @@ push_and_check
 echo clearing after 3s
 sleep 3
 clear
-print_color "$BLUE" "Happy coding KING\n"
+cprint "$BLUE" "Happy coding KING\n"
