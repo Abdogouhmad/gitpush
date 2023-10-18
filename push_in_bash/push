@@ -54,7 +54,7 @@ unique_file(){
         cprint "$PURPLE" "[?] give the commit name: \n"
         read -re cmt
         git commit -m "$cmt"
-        git push
+        push_and_check
         clear
         cprint "$CYAN" "[<3]Happy coding KING\n"
         exit
