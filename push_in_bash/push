@@ -94,10 +94,10 @@ push_and_check(){
 
 select_icon() {
     cprint "$YELLOW" "List of Icons:\n"
-    icon_number=1
+    icon_number=2
 
-    for icon in "${ICONS[@]}"; do
-        cprint "$YELLOW" "[$icon_number] $icon\n"
+    until [ "$icon_number" -gt "${#ICONS[@]}" ]; do
+        cprint "$YELLOW" "[$icon_number] ${ICONS[icon_number-1]}\n"
         ((icon_number++))
     done
 
