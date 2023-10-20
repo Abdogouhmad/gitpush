@@ -105,15 +105,16 @@ select_icon() {
     read -re choice
 
     if [[ $choice =~ ^[0-9]+$ && $choice -ge 1 && $choice -le ${#ICONS[@]} ]]; then
-        selected_icon="${ICONS[choice-1]} "  # Add a space at the end to separate the icon from the user's custom text
+        selected_icon="${ICONS[choice-1]}"
     else
-        cprint "$CYAN" "[?] Enter your own custom icon: \n"
+        cprint "$CYAN" "[?] Enter your own custom icon: "
         read -re custom_text
-        selected_icon="$custom_text "
+        selected_icon="$custom_text"
     fi
 
     git commit -m "$selected_icon"
 }
+
 
 
 
