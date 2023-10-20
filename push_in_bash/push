@@ -122,4 +122,4 @@ push_and_check
 echo clearing after 3s
 sleep 3
 clear
-cprint "$PURPLE" "[ ❤ ] Happy coding KING\n"
+cprint "$PURPLE" "[ 💜 ] Happy coding KING\n"
