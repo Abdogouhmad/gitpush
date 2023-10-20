@@ -18,7 +18,7 @@ static CMD: [&str; 7] = [
 
 /**
  * *git_check - check if inside git repo
- * @arguements: none
+ * @arguments: none
  * @return: none
 */
 pub fn git_check() {
@@ -68,7 +68,7 @@ pub fn git_check() {
 
 /**
  * *git_add - add all changes to git
- * @arguements: none
+ * @arguments: none
  * @return: none
 */
 pub fn git_add() {
@@ -93,7 +93,7 @@ pub fn git_add() {
 }
 /**
  * *git_input_cmt - get input from user for the commit
- * @arguements: msg: String
+ * @arguments: msg: String
  * @return: none
  */
 
@@ -115,19 +115,10 @@ pub fn git_input_cmt(_msg: String) {
 
 /**
  * *git_commit - commit all changes to git
- * @arguements: msg: String
+ * @arguments: msg: String
  * @return: none
 */
-/**
- * *git_commit - commit all changes to git
- * @arguements: msg: String
- * @return: none
-*/
-/**
- * *git_commit - commit all changes to git
- * @arguements: msg: String
- * @return: none
-*/
+
 pub fn committed(msg: String) {
     let done_sc = emojis::get("😄").unwrap();
     let warning = emojis::get("❎").unwrap();
