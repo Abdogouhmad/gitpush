@@ -1,5 +1,7 @@
 mod git;
+mod push_file;
 use git::{git_check, git_add, git_push, clear_term, git_input_cmt};
+use push_file::push_f;
 fn main()
 {
     let msg_commit = String::new();
@@ -7,6 +9,8 @@ fn main()
 
 // check if the folder connected to git!
     git_check();
+// push file that user choose
+    push_f();
 // add the changes
     git_add();
 // git message commit
