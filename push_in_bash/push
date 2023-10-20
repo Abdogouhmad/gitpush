@@ -10,8 +10,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No
 #end coloring
-# icon
-ICONS=$(<icon.txt)
+
 #function section
 
 # pinrt_color - a function to print color
@@ -57,7 +56,7 @@ unique_file(){
         git commit -m "$cmt"
         push_and_check
         clear
-        cprint "$CYAN" "[<3]Happy coding KING\n"
+        cprint "$CYAN" "[❤]Happy coding KING\n"
         exit
     fi
 }
@@ -92,23 +91,6 @@ push_and_check(){
     fi
 }
 
-select_icon() {
-    cprint "$YELLOW" "List of Icons:\n"
-    for ((i=0; i<${#ICONS[@]}; i++)); do
-        cprint "$YELLOW" "[$((i+1))] ${ICONS[i]}\n"
-    done
-    cprint "$GREEN" "[*] Select an icon by number or enter your own: "
-    read -re choice
-
-    if [[ $choice =~ ^[0-9]+$ && $choice -ge 1 && $choice -le ${#ICONS[@]} ]]; then
-        selected_icon=${ICONS[choice-1]}
-    else
-        cprint "$CYAN" "[?] Enter your own custom icon: "
-        read -r selected_icon
-    fi
-
-    git commit -m "$selected_icon"
-}
 # commiting - commiting the changes
     # @Cname: the commit name
 # return: commit name
@@ -116,15 +98,13 @@ commiting(){
     # adding all the changes
     git add .
     #commiting the changes
-    #cprint "$CYAN" "[?] provide commit or hit enter if you like "Update!" as your commit: \n"
-    
-    select_icon
-    # read -r -e  Cname #git the commit name for user
-    # if [ -z "$Cname" ]; then
-    #     git commit -m "Update!"
-    # else
-    #     git commit -m "$Cname"
-    # fi
+    cprint "$CYAN" "[?] provide commit or hit enter if you like "Update!" as your commit: \n"
+    read -r -e  Cname #git the commit name for user
+    if [ -z "$Cname" ]; then
+        git commit -m "Update!"
+    else
+        git commit -m "$Cname"
+fi
 }
 # end func
 
@@ -142,4 +122,4 @@ push_and_check
 echo clearing after 3s
 sleep 3
 clear
-cprint "$BLUE" "Happy coding KING\n"
+cprint "$BLUE" "[❤] Happy coding KING\n"
