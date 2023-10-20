@@ -100,6 +100,7 @@ pub fn git_add() {
 
 pub fn git_input_cmt(_msg: String) {
     let rocket  = emojis::get("🚀").unwrap();
+    let empty_cmt = format!("{} new adjustments",rocket);
     cprint!("<yellow><bold>Enter commit message(or leave it empty for '🚀new adjustments' as commit): ");
     io::stdout().flush().expect("Failed to flush stdout");
     let mut input = String::new();
@@ -108,7 +109,7 @@ pub fn git_input_cmt(_msg: String) {
         .expect("Failed to read line");
     let mut msg = input.trim().to_string();
     if msg.is_empty() {
-        msg = rocket.to_string();
+        msg = empty_cmt.to_string();
     }
     committed(msg);
 }
