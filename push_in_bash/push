@@ -94,9 +94,13 @@ push_and_check(){
 
 select_icon() {
     cprint "$YELLOW" "List of Icons:\n"
-    for ((i=0; i<${#ICONS[@]}; i++)); do
-        cprint "$YELLOW" "[$((i+1))] ${ICONS[i]}\n"
+    icon_number=1
+
+    for icon in "${ICONS[@]}"; do
+        cprint "$YELLOW" "[$icon_number] $icon\n"
+        ((icon_number++))
     done
+
     cprint "$GREEN" "[*] Select an icon by number or enter your own: "
     read -re choice
 
@@ -104,11 +108,13 @@ select_icon() {
         selected_icon=${ICONS[choice-1]}
     else
         cprint "$CYAN" "[?] Enter your own custom icon: "
-        read -r selected_icon
+        read -re selected_icon
     fi
 
     git commit -m "$selected_icon"
 }
+
+
 # commiting - commiting the changes
     # @Cname: the commit name
 # return: commit name
