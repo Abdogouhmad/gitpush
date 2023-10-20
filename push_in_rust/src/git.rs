@@ -1,8 +1,8 @@
+use color_print::{cprint, cprintln};
 #[allow(dead_code)]
 #[allow(unused_imports)]
 #[allow(unused_variables)]
 use std::process;
-use color_print::{cprintln, cprint};
 // use colored::*;
 use std::io::{self, Write};
 static CMD: [&str; 7] = [
@@ -12,9 +12,8 @@ static CMD: [&str; 7] = [
     "git push origin",
     "git status --short",
     "clear",
-    "git rev-parse --abbrev-ref HEAD"
+    "git rev-parse --abbrev-ref HEAD",
 ];
-
 
 /**
  * *git_check - check if inside git repo
@@ -24,7 +23,7 @@ static CMD: [&str; 7] = [
 pub fn git_check() {
     let done_sc = emojis::get("✅").unwrap();
     let warning = emojis::get("❎").unwrap();
-    
+
     let output = if cfg!(target_os = "windows") {
         process::Command::new("cmd")
             .args(&["/C", CMD[0]])
@@ -61,10 +60,12 @@ pub fn git_check() {
             cprintln!("<red>[{}]not in repo</red>", warning);
         }
     } else {
-        cprintln!("<red>[{}]not inside git repo try to use git init to start</red>", warning);
+        cprintln!(
+            "<red>[{}]not inside git repo try to use git init to start</red>",
+            warning
+        );
     }
 }
-
 
 /**
  * *git_add - add all changes to git
@@ -98,7 +99,8 @@ pub fn git_add() {
  */
 
 pub fn git_input_cmt(_msg: String) {
-    cprint!("<yellow><bold>Enter commit message(or leave it empty for 'update' as commit): ");
+    let rocket  = emojis::get("🚀").unwrap();
+    cprint!("<yellow><bold>Enter commit message(or leave it empty for '🚀new adjustments' as commit): ");
     io::stdout().flush().expect("Failed to flush stdout");
     let mut input = String::new();
     io::stdin()
@@ -106,12 +108,10 @@ pub fn git_input_cmt(_msg: String) {
         .expect("Failed to read line");
     let mut msg = input.trim().to_string();
     if msg.is_empty() {
-        msg = "update".to_string();
+        msg = rocket.to_string();
     }
     committed(msg);
 }
-
-
 
 /**
  * *git_commit - commit all changes to git
@@ -122,8 +122,12 @@ pub fn git_input_cmt(_msg: String) {
 pub fn committed(msg: String) {
     let done_sc = emojis::get("😄").unwrap();
     let warning = emojis::get("❎").unwrap();
-    
-    let mut cmd = process::Command::new(if cfg!(target_os = "windows") { "cmd" } else { "sh" });
+
+    let mut cmd = process::Command::new(if cfg!(target_os = "windows") {
+        "cmd"
+    } else {
+        "sh"
+    });
     cmd.arg("-c").arg(format!("{} '{}'", CMD[2], msg));
 
     let output = cmd
@@ -135,7 +139,7 @@ pub fn committed(msg: String) {
         cprintln!("<green><bold>[{}]committed changes", done_sc);
     } else {
         cprintln!("<red><bold>[{}]failed to commit changes", warning);
-        
+
         if let Err(utf8_err) = String::from_utf8(output.stderr.clone()) {
             cprintln!("<red><bold>Error decoding UTF-8 output: {}", utf8_err);
         } else if let Ok(stderr) = String::from_utf8(output.stderr) {
@@ -145,8 +149,6 @@ pub fn committed(msg: String) {
         }
     }
 }
-
-
 
 /**
  * *git_push - push all changes to git
@@ -162,8 +164,7 @@ pub fn git_push() {
             .args(&["/C", CMD[6]])
             .output()
             .expect("failed to execute process")
-    }
-    else {
+    } else {
         process::Command::new("sh")
             .args(&["-c", CMD[6]])
             .output()
@@ -197,9 +198,18 @@ pub fn git_push() {
 
             // ! check the process if it is executed well
             if push_output.status.success() {
-                cprintln!("<green><bold>[{}]pushed changes to branch: {}", done_sc, branch_name);
+                cprintln!(
+                    "<green><bold>[{}]pushed changes to branch: {}",
+                    done_sc,
+                    branch_name
+                );
             } else {
-                cprintln!("<red><bold>[{}]failed to push changes to branch: {} [{}]", warning, branch_name, push_output.status);
+                cprintln!(
+                    "<red><bold>[{}]failed to push changes to branch: {} [{}]",
+                    warning,
+                    branch_name,
+                    push_output.status
+                );
             }
         }
     } else {
