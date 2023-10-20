@@ -56,7 +56,7 @@ unique_file(){
         git commit -m "$cmt"
         push_and_check
         clear
-        cprint "$CYAN" "[❤]Happy coding KING\n"
+        cprint "$CYAN" "[ ❤ ]Happy coding KING\n"
         exit
     fi
 }
@@ -84,7 +84,7 @@ push_and_check(){
         git push origin "$branch" # try pushing again
         return 1
     elif [ $save_output == 0 ]; then
-        cprint "$GREEN" "[:)] push successfully \n"
+        cprint "$GREEN" "[ 😄 ] push successfully \n"
         return 0
     else
         git push origin "$branch"
@@ -122,4 +122,4 @@ push_and_check
 echo clearing after 3s
 sleep 3
 clear
-cprint "$BLUE" "[❤] Happy coding KING\n"
+cprint "$PURPLE" "[ ❤ ] Happy coding KING\n"
