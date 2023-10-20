@@ -76,18 +76,18 @@ check_git() {
 push_and_check(){
     branch=$(git rev-parse --abbrev-ref HEAD) # get the current branch name
 
-    git push origin "$branch" 2>&1 </dev/null &
+    git push origin "$branch" > /dev/null 2>&1 &
 
     save_output=$? #storing the ouput for the condition
     if [ $save_output != 0 ]; then
         cprint "$RED""[!]there is issue with push i will push again hold-on!\n"
-        git push origin "$branch"  2>&1 </dev/null & # try pushing again
+        git push origin "$branch"  > /dev/null 2>&1 & # try pushing again
         return 1
     elif [ $save_output == 0 ]; then
         cprint "$GREEN" "[ 😄 ] push successfully \n"
         return 0
     else
-        git push origin "$branch" 2>&1 </dev/null &
+        git push origin "$branch" > /dev/null 2>&1 &
     fi
 }
 
